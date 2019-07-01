@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack/webpack.config.prod.js",
-    "dev": "webpack-dev-server --open --hot --config webpack/webpack.config.dev.js",
+    "dev": "webpack-dev-server --open --config webpack/webpack.config.dev.js",
+    "heroku-postbuild": "npm run build",
     "start": "serve -s dist"
   },
   "author": "tevin thuku",
@@ -41,6 +42,10 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0",
     "serve": "^11.0.2"
   },
   "repository": {
