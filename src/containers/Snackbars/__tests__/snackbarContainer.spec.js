@@ -47,7 +47,6 @@ describe("Test snackBarComponent", () => {
   });
   test("should call onDismiss with the ID", () => {
     const DismissMessage = id => {
-      console.log(id);
     };
     const wrapper = setUpUnconnectedSnackbar({ DismissMessage });
     const firstSnackbar = wrapper.find(Snackbar).first();
