@@ -18,12 +18,25 @@ const notificationTypes = {
 
 const articleActions = {
   GET_ARTICLES: "GET_ARTICLES",
-  SINGLE_ARTICLE: "SINGLE_ARTICLE"
+  SINGLE_ARTICLE: "SINGLE_ARTICLE",
+  SET_LOADING: "SET_LOADING",
+  REMOVE_LOADING: "REMOVE_LOADING"
+};
+
+const tagActions = {
+  TAGS: "TAGS"
+};
+const errorActions = {
+  ERRORS: "ERRORS"
 };
 
 export default {
   ...Snackbar,
   ...articleActions,
   ...profiletypes,
-  ...notificationTypes
+  ...notificationTypes,
+  ...articleActions,
+  ...profiletypes,
+  ...tagActions,
+  ...errorActions
 };
