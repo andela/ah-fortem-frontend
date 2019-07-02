@@ -53,7 +53,10 @@ export class ViewArticle extends Component {
                   <div className="card">
                     <div className="card-image waves-effect waves-block waves-light">
                       <img
+<<<<<<< HEAD
                         className="responsive-img"
+=======
+>>>>>>> 166980308-story(articles): CRUD operations for articles
                         width="20"
                         height="400"
                         src={article.image_url}
