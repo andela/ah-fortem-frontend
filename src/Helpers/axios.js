@@ -14,3 +14,12 @@ export const apiCalls = (
   const resolvedUrl = heroku ? baseUrl + url : url;
   return axiosMethod(resolvedUrl, data, { headers: headers });
 };
+
+export const deleteCalls = (method, url, token) => {
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + token
+  };
+  const axiosMethod = axios[method];
+  return axiosMethod(baseUrl + url, { headers: headers });
+};

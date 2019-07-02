@@ -2,6 +2,10 @@ import Notfound from "./components/Errors/NotFound";
 import Login from "./containers/Login/Login";
 import Profile from "./containers/Profile/Profile";
 import Signup from "./containers/Signup/Signup";
+import Articles from "./containers/articles/Articles";
+import ViewArticle from "./containers/articles/ViewArticle";
+import PostArticle from "./containers/articles/PostArticle";
+import EditArticle from "./containers/articles/EditArticle";
 
 const routes = [
   {
@@ -39,6 +43,38 @@ const routes = [
     private: false,
     name: "Signup page",
     component: Signup
+  },
+  {
+    path: "/",
+    key: "Home",
+    exact: true,
+    private: false,
+    name: "Articles",
+    component: Articles
+  },
+  {
+    path: "/articles/:slug",
+    key: "Article",
+    exact: true,
+    private: false,
+    name: "Article",
+    component: ViewArticle
+  },
+  {
+    path: "/articles",
+    key: "Post Article",
+    exact: true,
+    private: false,
+    name: "PostArticle",
+    component: PostArticle
+  },
+  {
+    path: "/edit/:slug",
+    key: "Edit Article",
+    exact: true,
+    private: false,
+    name: "EditArticle",
+    component: EditArticle
   },
   {
     path: "",
