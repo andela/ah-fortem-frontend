@@ -1,4 +1,6 @@
 ## Authors Haven - A Social platform for the creative at heart.
+[![Build Status](https://travis-ci.com/andela/ah-fortem-frontend.svg?branch=develop)](https://travis-ci.com/andela/ah-fortem-frontend)
+[![Coverage Status](https://coveralls.io/repos/github/andela/ah-fortem-frontend/badge.svg?branch=task/166980298-integrate-travis)](https://coveralls.io/github/andela/ah-fortem-frontend?branch=task/166980298-integrate-travis)
 
 ##Vision
 
