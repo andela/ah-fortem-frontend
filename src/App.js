@@ -1,9 +1,24 @@
 import React from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import routes from "./routes";
+import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/Footer/Footer";
+import "./assets/css/app.css";
 
 function App() {
   return (
     <div>
-      <h1>Welcome to Authors Haven</h1>
+      <BrowserRouter>
+        <Navbar />
+        <div className="page-body">
+          <Switch>
+            {routes.map(route => (
+              <Route {...route} />
+            ))}
+          </Switch>
+        </div>
+        <Footer />
+      </BrowserRouter>
     </div>
   );
 }
