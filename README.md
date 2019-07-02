@@ -24,5 +24,13 @@ Create a community of like minded authors to foster inspiration and innovation b
 
 `npm run start` or `yarn start`
 
+5. To Run the tests
+
+```js
+    `npm run test` or `yarn test`, // runs the tests once
+    `npm run test:watch` or `yarn test:watch`, // listens for file changes and reruns the tests
+    `npm run test:coverage` or `yarn test:coverage` // creates files to display coverage
+```
+
 ### Built by
 Team Fortem
