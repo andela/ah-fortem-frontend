@@ -149,26 +149,6 @@ describe("<Login>", () => {
         });
       });
   });
-  test("Handle submit function with no error data", () => {
-    apiCallModule.apiCalls = jest.fn(() =>
-      Promise.reject({ response: { status: 400, data: {} } })
-    );
-
-    const wrapper = wrapUnconnectedLogin({ history, ShowMessage });
-
-    const preventDefault = jest.fn();
-    const event = { preventDefault };
-    wrapper
-      .instance()
-      .handleSubmit(event)
-      .then(() => {
-        expect(apiCallModule.apiCalls).toHaveBeenCalled();
-        expect(ShowMessage).toHaveBeenCalled();
-      })
-      .then(() => {
-        expect(ShowMessage).toHaveBeenCalled();
-      });
-  });
   test("Message shows when user accesses Login while already loggged in", () => {
     localStorage.setItem("token", "Thisisatoken");
     const wrapper = wrapUnconnectedLogin({ history, ShowMessage });

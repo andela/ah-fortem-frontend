@@ -1,7 +1,9 @@
 import { combineReducers } from "redux";
 
 import MessageReducer from "./SnackBarReducer";
+import userProfile from "./userProfile/userProfile";
 
 export default combineReducers({
-  toasts: MessageReducer
+  toasts: MessageReducer,
+  profile: userProfile
 });

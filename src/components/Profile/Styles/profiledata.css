@@ -1,0 +1,17 @@
+.profile-data-wrapper {
+  top: 20px;
+  position: relative;
+}
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  right: 0px;
+  left: 0px;
+  position: relative;
+  margin: auto;
+}
+
+.profile-username {
+  text-align: center;
+}
