@@ -1,0 +1,22 @@
+.snackbar-item {
+  padding: 5px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  max-width: 30vw;
+  min-width: 20vw;
+  word-wrap: break-word !important;
+  text-align: center;
+}
+
+.snackbar-success {
+  color: #212121;
+  background-color: #1de9b6;
+  border-color: #c3e6cb;
+}
+
+
+.snackbar-error {
+  color: #212121;
+  background-color: #ff8080;
+}

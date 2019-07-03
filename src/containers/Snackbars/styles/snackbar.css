@@ -1,0 +1,8 @@
+.snackbar-container {
+  position: fixed;
+  z-index: 1000;
+  top: 14vh;
+  right: 0px;
+  margin-left: auto;
+  margin-right: auto;
+}
