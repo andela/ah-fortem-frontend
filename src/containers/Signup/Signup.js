@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom"
 
-import Input from "../../components/Input/Input.js";
+import Input from "../../components/input/Input.js";
 
 import { apiCalls } from "../../Helpers/axios";
 
