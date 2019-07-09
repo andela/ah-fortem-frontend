@@ -23,6 +23,16 @@
       document.addEventListener("DOMContentLoaded", function() {
         var elems = document.querySelectorAll(".sidenav");
         var instances = M.Sidenav.init(elems);
+
+        var dropdownElems = document.querySelectorAll(".dropdown-trigger");
+
+        var options = {
+          alignment: "left",
+          constrainWidth: false,
+          container: true,
+          coverTrigger: false
+        };
+        var dropdownInstances = M.Dropdown.init(dropdownElems, options);
       });
     </script>
   </body>

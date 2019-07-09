@@ -4,6 +4,7 @@ import Navlinks from "../../utils/links";
 import "./NavbarStyle.css";
 import { logout } from "../../Helpers/authHelpers";
 import { withRouter } from "react-router-dom";
+import Notifications from "../../containers/Notifications/notifications";
 
 const { auth, anonymous, alwaySeen } = Navlinks;
 const LinksList = ({ links }) =>
@@ -56,6 +57,7 @@ const Navbar = ({ history, isLoggedin }) => {
             </a>
             <ul className="right hide-on-med-and-down" data-test="links-list">
               <LinksList links={alwaySeen} />
+              {isLoggedin ? <Notifications /> : ""}
               <AuthLinks isLoggedin={isLoggedin} />
               <LogoutLink isLoggedin={isLoggedin} history={history} />
             </ul>
