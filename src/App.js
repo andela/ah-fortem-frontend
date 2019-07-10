@@ -5,11 +5,13 @@ import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import "./assets/css/app.scss";
 
+import SnackbarHoc from "./containers/Snackbars/Snackbar";
+import { isLoggedIn } from "./Helpers/authHelpers";
 function App() {
   return (
     <div>
       <BrowserRouter>
-        <Navbar />
+        <Navbar isLoggedin={isLoggedIn()} />
         <div className="page-body">
           <Switch>
             {routes.map(route => (
@@ -24,4 +26,4 @@ function App() {
 }
 
 // setsup hot reloading
-export default App;
+export default SnackbarHoc(App);

@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 
-import test from "./testreducer";
+import MessageReducer from "./SnackBarReducer";
 
 export default combineReducers({
-  test
+  toasts: MessageReducer
 });
