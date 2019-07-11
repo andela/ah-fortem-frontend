@@ -4,7 +4,18 @@ const Snackbar = {
   DISPLAYMESSAGE: "DISPLAYMESSAGE",
   DISMISSMESSAGE: "DISMISSMESSAGE"
 };
+// profile types
+const profiletypes = {
+  LOADPROFILE: "LOADPROFILE",
+  SETPROFILEDATA: "SETPROFILEDATA",
+  SAVEEDITEDPROFILEDATA: "SAVEEDITEDPROFILEDATA",
+  SETOWNERSTATUS: "SETOWNERSTATUS",
+  REMOVEPROFILELOADING: "REMOVEPROFILELOADING"
+};
 
-export default {
+const types = {
+  ...profiletypes,
   ...Snackbar
 };
+
+export default types;

@@ -6,8 +6,11 @@ export const apiCalls = (
   method,
   url,
   data = {},
-  headers = { "Content-Type": "application/json" }
+  headers = { "Content-Type": "application/json" },
+  heroku = true
 ) => {
   const axiosMethod = axios[method];
-  return axiosMethod(baseUrl + url, data, { headers: headers });
+  // not all API calls will be going to heroku. some will be going to imgur for image uploads
+  const resolvedUrl = heroku ? baseUrl + url : url;
+  return axiosMethod(resolvedUrl, data, { headers: headers });
 };

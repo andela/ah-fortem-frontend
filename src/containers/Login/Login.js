@@ -40,12 +40,14 @@ export class UnconnectedLogin extends Component {
           localStorage.setItem("user", response.data.user);
           history.push("/");
           ShowMessage("Log in successful");
+          return;
         } else {
           ShowMessage({
             message: "Opps no data returned. Try logging in again",
             type: "error"
           });
         }
+        return;
       })
       .catch(err => {
         const { status } = err.response;
