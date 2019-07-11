@@ -1,6 +1,7 @@
 import Notfound from "./components/Errors/NotFound";
 import Login from "./containers/Login/Login";
 import Profile from "./containers/Profile/Profile";
+import Signup from "./containers/Signup/Signup";
 
 const routes = [
   {
@@ -30,6 +31,14 @@ const routes = [
     key: "dynamic-profile",
     name: "Dynamic profile page",
     component: Profile
+  },
+  {
+    path: "/signup",
+    key: "200",
+    exact: true,
+    private: false,
+    name: "Signup page",
+    component: Signup
   },
   {
     path: "",
