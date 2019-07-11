@@ -2,23 +2,26 @@ import React from "react";
 import { shallow, mount } from "enzyme";
 import { StaticRouter } from "react-router-dom";
 import Navbar, { LogoutLink } from "../Navbar";
-
 import { Provider } from "react-redux";
-import store from "../../../redux/store";
+import { storeFactory } from "../../../testutils/index";
 
+const store = storeFactory();
 const history = {
   push: jest.fn()
 };
-
-const wrapper = mount(
-  <StaticRouter>
-    <Provider {...{ store }}>
-      <Navbar isLoggedin={true} history={history} />
-    </Provider>
-  </StaticRouter>
-);
+const setUp = (loggeIn = false) => {
+  return mount(
+    <StaticRouter>
+      <Provider {...{ store }}>
+        <Navbar history={history} />
+      </Provider>
+    </StaticRouter>
+  );
+};
 describe("<Navbar />", () => {
   test("should render Auth Links when isLoggedin is true", () => {
+    localStorage.setItem("token", "this is a token");
+    const wrapper = setUp(true);
     expect(wrapper.find({ to: "/profile" }).length).toBe(2);
   });
 

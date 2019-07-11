@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Navlinks from "../../utils/links";
 import "./NavbarStyle.css";
-import { logout } from "../../Helpers/authHelpers";
+import { logout, isLoggedIn } from "../../Helpers/authHelpers";
 import { withRouter } from "react-router-dom";
 import Notifications from "../../containers/Notifications/notifications";
 
@@ -39,7 +39,7 @@ export const LogoutLink = ({ isLoggedin, history }) => {
     ""
   );
 };
-const Navbar = ({ history, isLoggedin }) => {
+const Navbar = ({ history, isLoggedin = isLoggedIn() }) => {
   return (
     <div className="navbar-fixed">
       <nav className="orange darken-1">

@@ -8,4 +8,5 @@ export const isLoggedIn = () => {
 
 export const logout = () => {
   localStorage.clear();
+  sessionStorage.clear();
 };

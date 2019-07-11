@@ -59,10 +59,17 @@ describe("<Login>", () => {
         name: "password"
       }
     });
+    inputPass.simulate("change", {
+      persist: jest.fn(),
+      target: {
+        value: "changinPassword",
+        name: "password"
+      }
+    });
 
     expect(wrapper.state("user")).toEqual({
       email: "mail23@mail.com",
-      password: "password"
+      password: "changinPassword"
     });
   });
   test("Handle submit function", () => {
