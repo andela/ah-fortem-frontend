@@ -12,10 +12,14 @@ const profiletypes = {
   SETOWNERSTATUS: "SETOWNERSTATUS",
   REMOVEPROFILELOADING: "REMOVEPROFILELOADING"
 };
+const notificationTypes = {
+  GET_NOTIFICATIONS: "GET_NOTIFICATIONS"
+};
 
 const types = {
   ...profiletypes,
-  ...Snackbar
+  ...Snackbar,
+  ...notificationTypes
 };
 
 export default types;
