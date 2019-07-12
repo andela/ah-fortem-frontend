@@ -4,9 +4,8 @@
   "description": "##Vision",
   "main": "index.js",
   "scripts": {
-    "heroku-postbuild": "npm run build",
-    "start": "serve -s dist",
     "build": "webpack --config webpack/webpack.config.prod.js",
+    "start": "serve -s dist",
     "dev": "webpack-dev-server --open --config webpack/webpack.config.dev.js",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -75,6 +74,9 @@
     "redux-thunk": "^2.3.0",
     "serve": "^11.0.2",
     "uuidv4": "^4.0.0"
+  },
+  "engines": {
+    "node": "10.x"
   },
   "repository": {
     "type": "git",
