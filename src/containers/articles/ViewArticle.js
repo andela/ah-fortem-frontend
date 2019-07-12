@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { viewArticle, deleteArticle } from "../../redux/actions/articleActions";
 import ArticleEditor from "../../components/Article/ArticleEditor";
+import Loader from "../../components/Article/Loader";
 
 import "../../components/Article/styles/articles.css";
 
@@ -92,21 +93,8 @@ export class ViewArticle extends Component {
             </div>
           </div>
         ) : (
-          <div
-            className="preloader-wrapper big active loader"
-            data-test="no-view-test"
-          >
-            <div className="spinner-layer spinner-orange">
-              <div className="circle-clipper left">
-                <div className="circle" />
-              </div>
-              <div className="gap-patch">
-                <div className="circle" />
-              </div>
-              <div className="circle-clipper right">
-                <div className="circle" />
-              </div>
-            </div>
+          <div data-test="no-view-test">
+            <Loader />
           </div>
         )}
       </div>

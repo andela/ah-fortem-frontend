@@ -88,7 +88,7 @@ describe("Tests for Posting an article", () => {
       })
       .then(() => {
         expect(ShowMessage).toHaveBeenCalledWith({
-          message: "Api Server error 500. Try refreshing the page",
+          message: "Api Server error 500. Try sending the request again",
           type: "error"
         });
       });

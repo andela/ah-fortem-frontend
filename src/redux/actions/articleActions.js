@@ -1,20 +1,40 @@
 import articleActions from "./types";
 import { apiCalls, deleteCalls } from "../../Helpers/axios";
-import { ShowMessage } from "../../redux/actions/SnackBarAction";
+import { ShowMessage } from "./SnackBarAction";
+
+const dispatchSetArticles = (dispatch, data) => {
+  dispatch({
+    type: articleActions.GET_ARTICLES,
+    payload: data.data.articles
+  });
+  dispatch({
+    type: articleActions.REMOVE_LOADING
+  });
+};
 
 export const getArticles = () => dispatch => {
   const url = "/articles";
+  dispatch({
+    type: articleActions.SET_LOADING
+  });
+  return apiCalls("get", url).then(data => {
+    dispatchSetArticles(dispatch, data);
+  });
+};
+
+export const getArticlesByTags = tag => dispatch => {
+  const url = "/articles?tag=" + tag;
+  dispatch({
+    type: articleActions.SET_LOADING
+  });
   return apiCalls("get", url)
     .then(data => {
-      dispatch({
-        type: articleActions.GET_ARTICLES,
-        payload: data.data.articles
-      });
+      dispatchSetArticles(dispatch, data);
     })
     .catch(() => {
       dispatch(
         ShowMessage({
-          message: "Oops! server error please reload the page",
+          message: "Oops Articles not found. API Server error.",
           type: "error"
         })
       );

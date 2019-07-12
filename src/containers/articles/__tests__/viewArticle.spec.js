@@ -33,7 +33,7 @@ const setup = (props = { article }) => {
 
 describe("", () => {
   test("should render page without errors", () => {
-    const wrapper = setup();
+    const wrapper = setup({ article });
     renderer(wrapper, "view-test");
   });
   test("should render page without errors without article ", () => {

@@ -4,7 +4,8 @@ import {
   postArticle,
   viewArticle,
   updateArticle,
-  deleteArticle
+  deleteArticle,
+  getArticlesByTags
 } from "../articleActions";
 
 import { storeFactory } from "../../../testutils";
@@ -60,7 +61,8 @@ const testfunc = (method, func) => {
     const newState = store.getState();
     expect(newState.articles).toEqual({
       articles: [],
-      article: data.article
+      article: data.article,
+      loadingArticles: false
     });
   });
 };
@@ -141,7 +143,52 @@ describe("Test for all Article Actions", () => {
 
       expect(newState.articles).toEqual({
         article: null,
-        articles: data.articles
+        articles: data.articles,
+        loadingArticles: false
+      });
+    });
+  });
+});
+
+const getArticlesOperation = () => {
+  axios.get.mockImplementation(() =>
+    Promise.resolve({
+      data: data
+    })
+  );
+};
+
+describe("Filterby tags", () => {
+  const dispatchArticlesActions = (store, fn) => {
+    getArticlesOperation();
+    return store.dispatch(fn()).then(() => {
+      return store.getState();
+    });
+  };
+  const expectedState = newState => {
+    return expect(newState.articles).toEqual({
+      article: null,
+      articles: data.articles,
+      loadingArticles: false
+    });
+  };
+  test("should filter articles in the database by tags", () => {
+    return dispatchArticlesActions(storeFactory(), getArticlesByTags).then(
+      newState => {
+        expectedState(newState);
+      }
+    );
+  });
+  test("should return error message if filter articles in the database by tags is unsuccessful", () => {
+    axios.get.mockImplementation(() => Promise.reject({}));
+    const store = storeFactory();
+    return store.dispatch(getArticlesByTags()).then(() => {
+      const newState = store.getState();
+
+      expect(newState.articles).toEqual({
+        article: null,
+        articles: [],
+        loadingArticles: true
       });
     });
   });
