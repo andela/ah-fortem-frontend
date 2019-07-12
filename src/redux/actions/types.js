@@ -16,10 +16,14 @@ const notificationTypes = {
   GET_NOTIFICATIONS: "GET_NOTIFICATIONS"
 };
 
-const types = {
-  ...profiletypes,
-  ...Snackbar,
-  ...notificationTypes
+const articleActions = {
+  GET_ARTICLES: "GET_ARTICLES",
+  SINGLE_ARTICLE: "SINGLE_ARTICLE"
 };
 
-export default types;
+export default {
+  ...Snackbar,
+  ...articleActions,
+  ...profiletypes,
+  ...notificationTypes
+};

@@ -46,8 +46,7 @@ describe("Test snackBarComponent", () => {
     expect(wrapper.find(Snackbar).length).toBe(2);
   });
   test("should call onDismiss with the ID", () => {
-    const DismissMessage = id => {
-    };
+    const DismissMessage = id => {};
     const wrapper = setUpUnconnectedSnackbar({ DismissMessage });
     const firstSnackbar = wrapper.find(Snackbar).first();
     const snackbarprops = firstSnackbar.props();
