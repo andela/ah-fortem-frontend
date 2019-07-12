@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { apiCalls } from "../../Helpers/axios";
 import { ShowMessage } from "../../redux/actions/SnackBarAction";
 import { isLoggedIn } from "../../Helpers/authHelpers";
+import {validate } from "../../Helpers/inputValidation";
 
 export class UnconnectedLogin extends Component {
   constructor(props) {
@@ -14,7 +15,8 @@ export class UnconnectedLogin extends Component {
         email: "",
         password: ""
       },
-      errors: {}
+      errors: {},
+      login: { value: "Login", disabled: "disabled" }
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -30,6 +32,10 @@ export class UnconnectedLogin extends Component {
     event.preventDefault();
     const { history, ShowMessage } = this.props;
     ShowMessage("Logging in....");
+    this.setState({
+      ...this.state,
+      login: { ...this.state.login, value: "Submitting ....." }
+    });
     return apiCalls("post", "/users/login", this.state)
       .then(response => {
         if (response.data != null) {
@@ -51,6 +57,10 @@ export class UnconnectedLogin extends Component {
       })
       .catch(err => {
         const { status } = err.response;
+        this.setState({
+          ...this.state,
+          login: { ...this.state.login, value: "Login" }
+        });
         if (status === 500) {
           ShowMessage({
             message: "Api Server error 500. Try logging in again",
@@ -65,8 +75,21 @@ export class UnconnectedLogin extends Component {
         }
       });
   }
+  
   handleChange(event) {
-    const { user } = this.state;
+    const { user, login } = this.state;
+    if ((validate('email', user.email) === false) & (user.password.length > 4)) {
+      this.setState({
+        ...this.state,
+        login: { ...login, disabled: "" }
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        login: { ...login, disabled: "disabled" }
+      });
+    }
+
     this.setState({
       user: { ...user, [event.target.name]: event.target.value },
       errors: {}
@@ -74,7 +97,7 @@ export class UnconnectedLogin extends Component {
   }
   render() {
     const { email, password } = this.state.user;
-    const { errors } = this.state;
+    const { errors, login } = this.state;
     return (
       <div className="row valign-wrapper login-box">
         <div className="col s12 m4 offset-m4 valign">
@@ -112,7 +135,7 @@ export class UnconnectedLogin extends Component {
                 <a className="blue-text" href="/reset-password">
                   Reset Password
                 </a>
-                <input type="submit" className="btn orange" value="Login" />
+                <input type="submit" className="btn orange" {...login} />
               </div>
             </form>
           </div>
