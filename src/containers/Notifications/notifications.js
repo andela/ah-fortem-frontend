@@ -7,7 +7,7 @@ export class Notifications extends Component {
   componentDidMount() {
     const username = localStorage.getItem("username");
     const url =
-      "ws://ah-premier-staging.herokuapp.com/api/notifications/" +
+      "wss://ah-premier-staging.herokuapp.com/api/notifications/" +
       username +
       "/";
 

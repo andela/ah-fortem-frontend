@@ -58,6 +58,7 @@ const Navbar = ({ history, isLoggedin = isLoggedIn() }) => {
             <ul className="right hide-on-med-and-down" data-test="links-list">
               <LinksList links={alwaySeen} />
               {isLoggedin ? <Notifications /> : ""}
+              {isLoggedin && <li><a href="/articles">New Article</a></li>}
               <AuthLinks isLoggedin={isLoggedin} />
               <LogoutLink isLoggedin={isLoggedin} history={history} />
             </ul>

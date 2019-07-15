@@ -1,5 +1,7 @@
 const merge = require("webpack-merge");
 const workboxPlugin = require("workbox-webpack-plugin");
+const webpack = require("webpack");
+
 
 const baseConfig = require("./webpack.config.base");
 
@@ -53,6 +55,12 @@ module.exports = merge(baseConfig, {
           }
         }
       ]
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        IMGUR_CLIENT_ID: process.env.IMGUR_CLIENT_ID,
+        IMGUR_CLIENT_SECRET: process.env.IMGUR_CLIENT_SECRET
+      }
     })
   ]
 });
