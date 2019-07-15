@@ -31,7 +31,7 @@ export class Articles extends Component {
           <div className="col s9 pull-s3">
             {loadingArticles && <Loader />}
             {this.props.articles.map(article => (
-              <div>
+              <div key={article.id}>
                 <ArticleCard article={article} />
               </div>
             ))}

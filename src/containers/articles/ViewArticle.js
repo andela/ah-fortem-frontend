@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { viewArticle, deleteArticle } from "../../redux/actions/articleActions";
 import ArticleEditor from "../../components/Article/ArticleEditor";
+import { CommentsContainer } from "../Comments";
 import Loader from "../../components/Article/Loader";
 
 import "../../components/Article/styles/articles.css";
@@ -90,6 +91,10 @@ export class ViewArticle extends Component {
                   </div>
                 </div>
               </div>
+            </div>
+            {/* comments container */}
+            <div className={"container"}>
+              <CommentsContainer {...{ article }} />
             </div>
           </div>
         ) : (

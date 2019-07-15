@@ -5,11 +5,13 @@ import MessageReducer from "./SnackBarReducer";
 import userProfile from "./userProfile/userProfile";
 import notifications from "./notifications";
 import tags from "./tagsReducer";
+import { CommentsReducer } from "./comments";
 
 export default combineReducers({
   toasts: MessageReducer,
   notifications: notifications,
   profile: userProfile,
   tags,
-  articles
+  articles,
+  comments: CommentsReducer
 });
