@@ -1,6 +1,7 @@
 .comment-avatar-container {
   display: flex;
 }
+
 .avatar-image > img {
   width: 45px;
   height: 45px;
@@ -11,4 +12,9 @@
 .comment-header-details {
   display: flex;
   flex-direction: column;
+}
+
+.comment-header-details > i {
+  color: gray;
+  font-size: 12px;
 }

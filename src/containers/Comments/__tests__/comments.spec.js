@@ -1,12 +1,16 @@
 import React from "react";
 import { shallow } from "enzyme";
+import axios from "axios";
 import CommentsContainer, { UnconnectedCommentsContainer } from "../Comments";
 
 import { findByTestAttr, storeFactory } from "../../../testutils";
 import CommentsLoading from "../../../components/Comments/CommentsLoading";
+import CommentsFailure from "../../../components/Comments/ComponentsFailedLoad";
 
+jest.spyOn(axios, "get");
 const commentsObj = {
-  isLoading: false
+  isLoading: false,
+  comments: []
 };
 /**
  *
@@ -18,9 +22,16 @@ const setUp = (
   }
 ) => shallow(<UnconnectedCommentsContainer {...props} />);
 
+// an article object
 const article = {
   slug: "new-article"
 };
+
+// props that are used over and over again in the tests
+const recurringProps = { article, comments: commentsObj };
+
+// an api error prop
+const apiErrorFunction = jest.fn(() => Promise.reject({}));
 
 /**
  * set localStorage in a test
@@ -37,6 +48,22 @@ const testForComponentLength = nodestring => {
   const targetDiv = findByTestAttr(wrapper, nodestring);
   expect(targetDiv.length).toBe(1);
 };
+
+/**
+ *
+ * @param {Shallow} wrapper - shallow wrapper
+ * @param {React.Component} component - the react component we are searching for
+ */
+const testComponentLength = (wrapper, component) =>
+  expect(wrapper.find(component).length).toBe(1);
+
+/**
+ * this function jyst compares 2 error objects
+ * @param {object} proposition - the first object
+ * @param {object} assertion - the second object
+ */
+const testErrorMessageObject = (proposition, assertion) =>
+  expect(proposition).toEqual(assertion);
 
 describe("<UnconnectedCommentsContainer />", () => {
   afterEach(() => {
@@ -67,14 +94,16 @@ describe("<UnconnectedCommentsContainer />", () => {
   });
 
   test("should fetch comments with article slug when showArticleComments is called", () => {
-    const getArticleComments = jest.fn();
+    const getArticleComments = jest.fn(() => Promise.resolve({}));
     const wrapper = setUp({
       comments: { ...commentsObj },
       article,
       getArticleComments
     });
     wrapper.instance().showArticleComments();
-    expect(getArticleComments).toHaveBeenCalledWith(article.slug);
+    expect(getArticleComments).toHaveBeenCalled();
+    wrapper.instance().handleCommentsLoadingFailure();
+    testComponentLength(wrapper, CommentsFailure);
   });
 
   test("should call showMessage upon successfully creating a comment", done => {
@@ -84,8 +113,7 @@ describe("<UnconnectedCommentsContainer />", () => {
       done();
     };
     const wrapper = setUp({
-      comments: commentsObj,
-      article,
+      ...recurringProps,
       createComment,
       ShowMessage
     });
@@ -97,7 +125,7 @@ describe("<UnconnectedCommentsContainer />", () => {
 
   test("should call showMessage with error message upon comment creation failure", done => {
     const ShowMessage = message => {
-      expect(message).toEqual({
+      testErrorMessageObject(message, {
         message:
           "Something went wrong creating the comment, please try again and make sure the comment field is not blank",
         type: "error"
@@ -105,9 +133,8 @@ describe("<UnconnectedCommentsContainer />", () => {
       done();
     };
     const wrapper = setUp({
-      comments: commentsObj,
-      article,
-      createComment: jest.fn(() => Promise.reject({})),
+      ...recurringProps,
+      createComment: apiErrorFunction,
       ShowMessage
     });
     wrapper.instance().postComment({
@@ -142,6 +169,45 @@ describe("<UnconnectedCommentsContainer />", () => {
       }
     });
 
-    expect(wrapper.find(CommentsLoading).length).toBe(1);
+    testComponentLength(wrapper, CommentsLoading);
+  });
+
+  test("should call ShowComments if comment is deleted successfully", done => {
+    const ShowMessage = message => {
+      expect(message).toBe("Successfully deleted the comment");
+      done();
+    };
+    const deleteComment = jest.fn(() => Promise.resolve({}));
+    const wrapper = setUp({
+      ...recurringProps,
+      deleteComment,
+      ShowMessage
+    });
+    wrapper.instance().deleteComment();
+  });
+  test("should call ShowComments if comment is not deleted successfully with an error", done => {
+    const ShowMessage = errorMessage => {
+      testErrorMessageObject(errorMessage, {
+        message:
+          "Could not delete the comment successfully, kindly try again and make sure your internet connection is stable",
+        type: "error"
+      });
+      done();
+    };
+    const wrapper = setUp({
+      ...recurringProps,
+      deleteComment: apiErrorFunction,
+      ShowMessage
+    });
+    wrapper.instance().deleteComment();
+  });
+  test("should call editComment when comment is updated", () => {
+    const editComment = jest.fn();
+    const componentWrapper = setUp({
+      ...recurringProps,
+      editComment
+    });
+    componentWrapper.instance().handleEditComment();
+    expect(editComment).toHaveBeenCalled();
   });
 });

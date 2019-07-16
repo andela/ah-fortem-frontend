@@ -5,9 +5,12 @@ import { connect } from "react-redux";
 import { Textarea } from "../../components/TextArea/";
 import CommentsContainerList from "../../components/Comments/CommentsCards";
 import LoadingCommentsCard from "../../components/Comments/CommentsLoading";
+import CommentsFailedToLoad from "../../components/Comments/ComponentsFailedLoad";
 import {
   createComment,
-  getArticleComments
+  getArticleComments,
+  deleteComment,
+  editComment
 } from "../../redux/actions/commentsActions/commentsActions";
 import { ShowMessage } from "../../redux/actions/SnackBarAction";
 
@@ -16,7 +19,8 @@ export class UnconnectedCommentsContainer extends React.Component {
   state = {
     showComments: false,
     commentBody: "",
-    submitting: false
+    submitting: false,
+    failedToFetchComments: false
   };
 
   /**
@@ -30,6 +34,23 @@ export class UnconnectedCommentsContainer extends React.Component {
   };
 
   /**
+   * this method is called when comments fail to load
+   */
+  handleCommentsLoadingFailure = () => {
+    this.setState({
+      failedToFetchComments: true
+    });
+  };
+
+  /**
+   * this method shows and hides comments container
+   */
+  toggleShowComments = event => {
+    this.setState({
+      showComments: !this.state.showComments
+    });
+  };
+  /**
    * toggles the showArticleComments from false to true
    * & triggers the call to getting the article's comments
    */
@@ -38,10 +59,11 @@ export class UnconnectedCommentsContainer extends React.Component {
       getArticleComments,
       article: { slug }
     } = this.props;
-    this.setState(({ showComments }) => ({
-      showComments: true
+    this.toggleShowComments();
+    this.setState(({ showComments, failedToFetchComments }) => ({
+      failedToFetchComments: false
     }));
-    getArticleComments(slug);
+    return getArticleComments(slug, this.handleCommentsLoadingFailure);
   };
 
   /**
@@ -62,6 +84,45 @@ export class UnconnectedCommentsContainer extends React.Component {
     })
       .then(this.handleSuccessfullCommentCreation)
       .catch(this.handleCommentCreationFailure);
+  };
+
+  /**
+   * this method is responsible for deleting a comment
+   * @param {String} - CommentId - The id of the comment
+   * @returns {Promise} - Promise<Resolve | Reject>
+   */
+  deleteComment = commentId => {
+    const {
+      deleteComment,
+      article: { slug }
+    } = this.props;
+
+    return deleteComment(slug, commentId)
+      .then(this.handleSuccessfullCommentDeletion)
+      .catch(this.handleFailDeletingComment);
+  };
+
+  /**
+   * this method is called when a user deletes a comment successfully
+   */
+
+  handleSuccessfullCommentDeletion = () => {
+    const { ShowMessage } = this.props;
+
+    ShowMessage("Successfully deleted the comment");
+  };
+
+  /**
+   * this method is called when a comment is not deleted successfully
+   */
+  handleFailDeletingComment = () => {
+    const { ShowMessage } = this.props;
+
+    ShowMessage({
+      message:
+        "Could not delete the comment successfully, kindly try again and make sure your internet connection is stable",
+      type: "error"
+    });
   };
 
   /**
@@ -93,20 +154,57 @@ export class UnconnectedCommentsContainer extends React.Component {
   };
 
   /**
+   * this method handles the edit a comment functionality
+   */
+  handleEditComment = (id, body) => {
+    const {
+      editComment,
+      article: { slug }
+    } = this.props;
+    editComment(slug, id, body);
+  };
+
+  /**
    * renders the show comments button IFF a user is logged in
    * &  this.state.showComments is false
    */
   renderShowCommentsButton = () => {
     const { showComments } = this.state;
-    return localStorage.getItem("token") && !showComments ? (
-      <a
-        className="waves-effect waves-light orange darken-1 btn-small full-width"
-        data-test="show-comments"
-        onClick={this.showArticleComments}
-      >
-        Show Comments
-      </a>
-    ) : null;
+    return (
+      localStorage.getItem("token") &&
+      !showComments && (
+        <a
+          className="waves-effect show-comment waves-light chip hoverable btn-small full-width"
+          data-test="show-comments"
+          onClick={this.showArticleComments}
+        >
+          Show Comments
+        </a>
+      )
+    );
+  };
+
+  /**
+   * this method renders the hide comments Button
+   */
+  renderHideCommentsButton = () => {
+    const {
+      comments: { comments }
+    } = this.props;
+    const { showComments } = this.state;
+
+    return (
+      localStorage.getItem("token") &&
+      showComments && (
+        <a
+          className="waves-effect show-comment waves-light chip hoverable btn-small full-width"
+          data-test="hide-comments"
+          onClick={this.toggleShowComments}
+        >
+          Hide Comments ({comments.length})
+        </a>
+      )
+    );
   };
 
   /**
@@ -117,7 +215,7 @@ export class UnconnectedCommentsContainer extends React.Component {
       !localStorage.getItem("token") && (
         <Link
           data-test="login-to-view-comments"
-          className="waves-effect waves-light orange darken-1 btn full-width"
+          className="waves-effect show-comment waves-light chip hoverable btn-small full-width"
           to="/login"
         >
           Login to view the article's comments
@@ -167,12 +265,26 @@ export class UnconnectedCommentsContainer extends React.Component {
    */
 
   renderArticleCommentsCards = () => {
-    const { showComments } = this.state;
+    const { showComments, failedToFetchComments } = this.state;
     const {
-      comments: { comments }
+      comments: { comments, isLoading }
     } = this.props;
-    return showComments && <CommentsContainerList {...{ comments }} />;
+    return (
+      showComments &&
+      !isLoading &&
+      !failedToFetchComments && (
+        <CommentsContainerList
+          {...{ comments }}
+          deleteComment={this.deleteComment}
+          handleEditComment={this.handleEditComment}
+        />
+      )
+    );
   };
+
+  /**
+   * this is rendered when the comments are loading
+   */
 
   renderLoadingCards = () => {
     const {
@@ -182,14 +294,34 @@ export class UnconnectedCommentsContainer extends React.Component {
     return isLoading && <LoadingCommentsCard />;
   };
 
+  /***
+   * this method renders the failure component when comments
+   * fail to load
+   */
+  renderFailedToLoadComponent = () => {
+    const { failedToFetchComments } = this.state;
+
+    return (
+      failedToFetchComments && (
+        <CommentsFailedToLoad showArticleComments={this.showArticleComments} />
+      )
+    );
+  };
+
   render() {
     return (
       <div data-test="comments-container-div">
-        {this.renderLoginToViewComments()}
-        {this.renderShowCommentsButton()}
+        <div className="buttons-container">
+          <div>
+            {this.renderLoginToViewComments()}
+            {this.renderShowCommentsButton()}
+            {this.renderHideCommentsButton()}
+          </div>
+        </div>
         {this.renderCommentsForm()}
         {this.renderLoadingCards()}
         {this.renderArticleCommentsCards()}
+        {this.renderFailedToLoadComponent()}
       </div>
     );
   }
@@ -204,6 +336,8 @@ export default connect(
   {
     createComment,
     ShowMessage,
-    getArticleComments
+    getArticleComments,
+    deleteComment,
+    editComment
   }
 )(UnconnectedCommentsContainer);

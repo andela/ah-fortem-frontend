@@ -7,7 +7,9 @@ import CommentsCards from "../CommentsCards";
 
 const comments = [
   {
-    user: {},
+    user: {
+      username: "tevfortem"
+    },
     created_at: new Date()
   }
 ];
@@ -19,7 +21,11 @@ const setUp = (
 ) => shallow(<CommentsCards {...props} />);
 
 describe("<CommentsCards />", () => {
+  afterEach(() => {
+    localStorage.clear();
+  });
   test("should render CommentsCards without error", () => {
+    localStorage.setItem("username", "tevfortem");
     const wrapper = setUp();
     expect(wrapper.find(Avatar).length).toBe(1);
   });
