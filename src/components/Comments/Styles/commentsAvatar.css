@@ -1,0 +1,14 @@
+.comment-avatar-container {
+  display: flex;
+}
+.avatar-image > img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.comment-header-details {
+  display: flex;
+  flex-direction: column;
+}

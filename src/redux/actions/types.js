@@ -23,6 +23,14 @@ const articleActions = {
   REMOVE_LOADING: "REMOVE_LOADING"
 };
 
+// comment actionTypes
+const commentActions = {
+  SET_COMMENTS: "SET_COMMENTS",
+  CREATE_COMMENT: "CREATE_COMMENT",
+  SET_LOADING_COMMENTS: "SET_LOADING_COMMENTS",
+  REMOVE_LOADING_COMMENTS: "REMOVE_LOADING_COMMENTS"
+};
+
 const tagActions = {
   TAGS: "TAGS"
 };
@@ -38,5 +46,6 @@ export default {
   ...articleActions,
   ...profiletypes,
   ...tagActions,
-  ...errorActions
+  ...errorActions,
+  ...commentActions
 };
