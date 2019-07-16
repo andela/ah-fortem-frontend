@@ -38,7 +38,10 @@ const tagActions = {
 const errorActions = {
   ERRORS: "ERRORS"
 };
-
+const likesDislike = {
+  UPDATE_LIKES: "UPDATE_LIKES",
+  REMOVE_LIKES: "REMOVE_LIKES"
+};
 export default {
   ...Snackbar,
   ...articleActions,
@@ -48,5 +51,6 @@ export default {
   ...profiletypes,
   ...tagActions,
   ...errorActions,
-  ...commentActions
+  ...commentActions,
+  ...likesDislike
 };

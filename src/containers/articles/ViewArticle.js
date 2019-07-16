@@ -6,7 +6,7 @@ import { viewArticle, deleteArticle } from "../../redux/actions/articleActions";
 import ArticleEditor from "../../components/Article/ArticleEditor";
 import { CommentsContainer } from "../Comments";
 import Loader from "../../components/Article/Loader";
-
+import LikeDislike from "../../containers/LikesDislike/LikesDislikesContainer";
 import "../../components/Article/styles/articles.css";
 import ShareBar from "./ShareArticle";
 
@@ -71,6 +71,7 @@ export class ViewArticle extends Component {
                         body={article.body}
                         getDraftJSContent={() => {}}
                       />
+                      <LikeDislike />
                     </div>
                     <div className="user-buttons right-align">
                       {user === article.author.username ? (

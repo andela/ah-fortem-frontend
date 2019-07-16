@@ -4,7 +4,12 @@ const initialState = {
   articles: [],
   article: null,
   count: null,
-  loadingArticles: false
+  loadingArticles: false,
+  likesCount: {
+    likes: 0,
+    dislikes: 0,
+    total: 0
+  }
 };
 
 export default (state = initialState, action) => {
@@ -19,6 +24,8 @@ export default (state = initialState, action) => {
       return { ...state, loadingArticles: false };
     case articleActions.ADD_COUNT:
       return { ...state, count: action.payload };
+    case articleActions.UPDATE_LIKES:
+      return { ...state, likesCount: action.payload };
     default:
       return state;
   }
