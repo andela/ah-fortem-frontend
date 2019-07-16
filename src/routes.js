@@ -6,7 +6,8 @@ import Articles from "./containers/articles/Articles";
 import ViewArticle from "./containers/articles/ViewArticle";
 import PostArticle from "./containers/articles/PostArticle";
 import EditArticle from "./containers/articles/EditArticle";
-
+import PasswordReset from "./containers/PasswordReset/Passwordreset";
+import ResetPasswordConfirm from "./containers/PasswordReset/ConfirmPasswordReset";
 const routes = [
   {
     path: "/login",
@@ -75,6 +76,22 @@ const routes = [
     private: false,
     name: "EditArticle",
     component: EditArticle
+  },
+  {
+    path: "/reset-password/",
+    key: "Reset Password",
+    exact: true,
+    private: false,
+    name: "PasswordReset",
+    component: PasswordReset
+  },
+  {
+    path: "/password-reset-confirm",
+    key: "Reset Password Confirm",
+    exact: true,
+    private: false,
+    name: "PasswordRestConfirm",
+    component: ResetPasswordConfirm
   },
   {
     path: "",
