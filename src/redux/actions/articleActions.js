@@ -12,12 +12,19 @@ const dispatchSetArticles = (dispatch, data) => {
   });
 };
 
-export const getArticles = () => dispatch => {
-  const url = "/articles";
+const articleCount = (dispatch, data) => {
+  dispatch({
+    type: articleActions.ADD_COUNT,
+    payload: data.data.count
+  });
+};
+export const getArticles = (page = 1) => dispatch => {
+  const url = "/articles?page=" + page;
   dispatch({
     type: articleActions.SET_LOADING
   });
   return apiCalls("get", url).then(data => {
+    articleCount(dispatch, data);
     dispatchSetArticles(dispatch, data);
   });
 };

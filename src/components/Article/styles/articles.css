@@ -1,13 +1,12 @@
 .article-title {
-  font-family: "Times New Roman";
   font-weight: lighter;
-  padding: 10px;
+  /* padding: 10px; */
+  padding: 2 0;
 }
 
 .article-desc {
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode";
-  padding: 10px;
+  /* padding: 10px; */
+  height: 96px;
 }
 
 .article-author {
@@ -17,7 +16,7 @@
 .article-author-name {
   padding: 1em;
   color: #333;
-  font-weight: lighter;
+  /* font-weight: lighter; */
   margin-right: 1rem;
   font-size: 15px;
 }
@@ -46,5 +45,21 @@
 
 .read_time {
   font-weight: lighter;
-  margin-top: 2em;
+  margin-left: 53px;
+}
+.article-stats {
+  margin-top: -12px;
+}
+.articles-stats {
+  font-weight: lighter;
+}
+.articles-stats .react-rater {
+  font-size: 1.2rem;
+}
+.articles-stats .read-time {
+  color: #5a5a5a;
+}
+.card .card-content {
+  height: 250px;
+  max-height: 250px;
 }

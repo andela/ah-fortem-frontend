@@ -1,0 +1,8 @@
+.pagination li.active {
+  background-color: #fb8c00;
+}
+
+.disabler {
+  pointer-events: none;
+  cursor: default;
+}

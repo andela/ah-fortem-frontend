@@ -9,43 +9,27 @@ const ArticleCard = article => {
     slug,
     description,
     image_url,
-    avg_rating,
     read_time
   } = article.article;
   return (
-    <div className="container" data-test="card-test">
-      <div className="row" id={slug} key={id}>
-        <div className="col m12">
-          <div className="card">
-            <div className="card-image waves-effect waves-block waves-light">
-              <img width="20" height="400" src={image_url} alt="None to show" />
-            </div>
-            <div className="card-content align-right">
-              <h3 className="article-title">
-                <span>{title}</span>
-              </h3>
-              <p className="article-desc">
-                <span>{description}</span>
-              </p>
-              <div className="right-align">
-                <i>
-                  <span>{read_time}</span>
-                  <br />
-                  <span>Rating: {avg_rating}</span>
-                </i>
-              </div>
-            </div>
-            <div className="card-action">
-              <Link
-                className="waves-effect waves-light btn"
-                to={`/articles/${slug}`}
-              >
-                Read Article
-              </Link>
-            </div>
+    <div className="col m4" id={slug} key={id} data-test="card-test">
+      <Link className="black-text darken-3" to={`/articles/${slug}`}>
+        <div className="card hoverable">
+          <div className="card-image waves-effect waves-block waves-light">
+            <img width="10" height="200" src={image_url} alt="None to show" />
+          </div>
+          <div className="card-content left-align">
+            <span className="card-title">{title}</span>
+            <p className="article-desc">
+              <span>{description}</span>
+            </p>
+            <span className="left-align articles-stats">
+              <span className="read-time">{read_time}</span>
+              <br />
+            </span>
           </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };
