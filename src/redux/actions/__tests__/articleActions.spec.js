@@ -8,7 +8,7 @@ import {
   getArticlesByTags
 } from "../articleActions";
 
-import { storeFactory } from "../../../testutils";
+import { storeFactory, snackBarError } from "../../../testutils";
 
 const data = {
   article: {
@@ -106,14 +106,7 @@ describe("Test for all Article Actions", () => {
   });
 
   test("should show error message snackbar", () => {
-    jest.spyOn(axios, "get");
-
-    axios.get.mockImplementation(() => Promise.reject({}));
-
-    store.dispatch(getArticles()).then(() => {
-      const newState = store.getState();
-      expect(newState.toasts.length).toBe(1);
-    });
+    snackBarError("get", getArticles, 1);
   });
 
   test("should fetch all the articles in the database", () => {

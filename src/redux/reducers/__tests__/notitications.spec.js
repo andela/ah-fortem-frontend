@@ -1,7 +1,7 @@
 import reducer from "../notifications";
 import actionTypes from "../../actions/types";
 
-describe("notifications reducer reducer", () => {
+describe("notifications reducer", () => {
   it("should return the initial state", () => {
     expect(reducer(undefined, {})).toEqual([]);
   });

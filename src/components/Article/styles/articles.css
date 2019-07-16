@@ -20,6 +20,7 @@
   margin-right: 1rem;
   font-size: 15px;
 }
+
 .loader {
   position: fixed;
   top: 50%;
@@ -47,19 +48,36 @@
   font-weight: lighter;
   margin-left: 53px;
 }
+
 .article-stats {
   margin-top: -12px;
 }
+
 .articles-stats {
   font-weight: lighter;
 }
+
 .articles-stats .react-rater {
   font-size: 1.2rem;
 }
+
 .articles-stats .read-time {
   color: #5a5a5a;
 }
-.card .card-content {
-  height: 250px;
-  max-height: 250px;
+
+.article-tags {
+  position: fixed;
+}
+
+.react-rater {
+  font-size: 1.2rem;
+}
+
+.score {
+  font-size: 1.4em;
+  font-weight: lighter !important;
+}
+.rate-title{
+  font-size: 21px !important;
+  font-weight: 200 !important;
 }

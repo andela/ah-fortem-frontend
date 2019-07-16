@@ -1,6 +1,7 @@
 import rootReducer from "../redux/reducers";
 import { middlewares } from "../redux/store";
 import { createStore, applyMiddleware } from "redux";
+import axios from "axios";
 
 /**
  * - this function returns the element that has
@@ -22,4 +23,27 @@ export const storeFactory = initialState => {
     createStore
   );
   return createStoreWithMiddleware(rootReducer, initialState);
+};
+
+export const rejectPromise = method => {
+  jest.spyOn(axios, method);
+  let action;
+  if (method === "get") {
+    action = axios.get.mockImplementation(() => Promise.reject({}));
+  }
+  if (method === "post") {
+    action = axios.post.mockImplementation(() => Promise.reject({}));
+  }
+
+  return action;
+};
+
+export const snackBarError = (method, func, value) => {
+  let store = storeFactory();
+  rejectPromise(method);
+
+  return store.dispatch(func()).then(() => {
+    const newState = store.getState();
+    expect(newState.toasts.length).toBe(value);
+  });
 };
