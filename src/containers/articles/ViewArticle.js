@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+
 import { viewArticle, deleteArticle } from "../../redux/actions/articleActions";
 import ArticleEditor from "../../components/Article/ArticleEditor";
 import { CommentsContainer } from "../Comments";
 import Loader from "../../components/Article/Loader";
 
 import "../../components/Article/styles/articles.css";
+import ShareBar from "./ShareArticle";
 
 export class ViewArticle extends Component {
   componentDidMount() {
@@ -28,6 +30,7 @@ export class ViewArticle extends Component {
       <div>
         {article ? (
           <div data-test="view-test">
+            <ShareBar article={article} />
             <div className="container" key={article.id}>
               <br />
               <div className="article-title">

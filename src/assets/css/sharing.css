@@ -1,0 +1,29 @@
+.left-sidebar {
+  position: fixed;
+  top: 40%;
+  z-index: 999;
+  left: 50px;
+}
+.left-sidebar ul {
+  border: none;
+}
+.left-sidebar i.fa-2x {
+  font-size: 25px;
+  color: #fff;
+}
+.left-sidebar li {
+  width: 60px;
+  transition: 0.5s;
+}
+.left-sidebar li:nth-child(1) {
+  background: #3b5999;
+}
+.left-sidebar li:nth-child(2) {
+  background: #55acee;
+}
+.left-sidebar li:nth-child(3) {
+  background: #dd4b39;
+}
+.left-sidebar li:hover {
+  width: 120px;
+}
