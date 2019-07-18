@@ -10,3 +10,13 @@
 .comment-form {
   padding: 20px;
 }
+
+.show-comment:hover {
+  background-color: #fc8b01;
+  color: white;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: center;
+}

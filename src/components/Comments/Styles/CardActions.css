@@ -1,0 +1,25 @@
+.delete-buttons {
+  margin-right: 10px;
+}
+
+.card-action-flex-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.card-action-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.card-action-flex-container > div > i {
+  margin-right: 20px;
+}
+
+.delete {
+  color: #dd2c00;
+}
+
+.inform {
+  margin: 50px;
+}

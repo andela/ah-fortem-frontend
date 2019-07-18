@@ -1,27 +1,44 @@
 import axios from "axios";
 
-import { createComment, getArticleComments } from "../commentsActions";
+import {
+  createComment,
+  getArticleComments,
+  deleteComment,
+  editComment
+} from "../commentsActions";
 import { storeFactory } from "../../../../testutils";
 
 jest.spyOn(axios, "get");
 jest.spyOn(axios, "post");
+jest.spyOn(axios, "delete");
+jest.spyOn(axios, "put");
 
 const comment = {
   id: 1,
   body: "new comment"
 };
 
+const defaultrecurringComments = {
+  comments: {
+    comments: [comment],
+    isLoading: false
+  }
+};
+
 /**
  *
  * @param {Promise} promisefn - a function that returns a promise
+ * @param {any} expectedValue - what you expect from the comments obj
+ * @param {any} initialState - the initial state of the store u want to begin with
  * @returns Jest expect
  */
 const commentsActionTestCaseFunction = (
   promisefn,
-  expectedValue = [comment]
+  expectedValue = [comment],
+  initialState = undefined
 ) => {
-  const store = storeFactory();
-  store.dispatch(promisefn).then(() => {
+  const store = storeFactory(initialState);
+  return store.dispatch(promisefn).then(() => {
     const newState = store.getState();
     expect(newState.comments).toEqual({
       comments: expectedValue,
@@ -61,5 +78,50 @@ describe("getArticleComments fns", () => {
       })
     );
     commentsActionTestCaseFunction(getArticleComments("article-1"), []);
+  });
+
+  test("should call the failureCallback when the test fails", () => {
+    axios.get.mockImplementation(() => Promise.reject({}));
+    const failureCallback = jest.fn();
+    commentsActionTestCaseFunction(
+      getArticleComments("article-1", failureCallback),
+      []
+    ).then(() => {
+      expect(failureCallback).toHaveBeenCalled();
+    });
+  });
+});
+
+describe("deleteComment fn", () => {
+  test("should update the comments Array by deleting a specified comment", () => {
+    axios.delete.mockImplementation(() => Promise.resolve({}));
+    commentsActionTestCaseFunction(deleteComment("new-article", 1), [], {
+      ...defaultrecurringComments
+    });
+  });
+});
+
+describe("editComment fn", () => {
+  test("should update the comment with the new body", () => {
+    const newBody = "new comment body";
+    axios.put.mockImplementation(() => Promise.resolve({}));
+    commentsActionTestCaseFunction(
+      editComment("slug", 1, newBody),
+      [{ id: 1, body: newBody }],
+      {
+        ...defaultrecurringComments
+      }
+    );
+  });
+
+  test("should not update the comment when a failute is attained", () => {
+    axios.put.mockImplementation(() => Promise.reject({}));
+    commentsActionTestCaseFunction(
+      editComment("slug", 1, "newBody"),
+      [comment],
+      {
+        ...defaultrecurringComments
+      }
+    );
   });
 });

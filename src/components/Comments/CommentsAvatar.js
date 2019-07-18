@@ -18,7 +18,7 @@ export default ({ user: { image, username }, created_at }) => (
     </div>
     <div className="comment-header-details">
       <div>{username}</div>
-      <div>{dateFormatter(created_at)}</div>
+      <i>{dateFormatter(created_at)}</i>
     </div>
   </div>
 );
