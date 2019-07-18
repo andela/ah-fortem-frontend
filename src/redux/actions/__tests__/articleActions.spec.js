@@ -34,7 +34,17 @@ const data = {
     flag: ""
   }
 };
-
+const replyWithData = {
+  article: null,
+  articles: data.articles,
+  loadingArticles: false,
+  count: null,
+  likesCount: {
+    dislikes: 0,
+    likes: 0,
+    total: 0
+  }
+};
 const store = storeFactory();
 const token = "token";
 
@@ -145,7 +155,12 @@ describe("Test for all Article Actions", () => {
       expect(newState.articles).toEqual({
         article: null,
         articles: data.articles,
-        loadingArticles: false
+        loadingArticles: false,
+        likesCount: {
+          dislikes: 0,
+          likes: 0,
+          total: 0
+        }
       });
     });
   });
@@ -160,6 +175,7 @@ const getArticlesOperation = () => {
 };
 
 describe("Filterby tags", () => {
+ 
   const dispatchArticlesActions = (store, fn) => {
     getArticlesOperation();
     return store.dispatch(fn()).then(() => {
@@ -167,12 +183,7 @@ describe("Filterby tags", () => {
     });
   };
   const expectedState = newState => {
-    return expect(newState.articles).toEqual({
-      article: null,
-      articles: data.articles,
-      count: null,
-      loadingArticles: false
-    });
+    return expect(newState.articles).toEqual(replyWithData);
   };
   test("should filter articles in the database by tags", () => {
     return dispatchArticlesActions(storeFactory(), getArticlesByTags).then(
@@ -191,7 +202,12 @@ describe("Filterby tags", () => {
         article: null,
         articles: [],
         count: null,
-        loadingArticles: true
+        loadingArticles: true,
+        likesCount: {
+          dislikes: 0,
+          likes: 0,
+          total: 0
+        }
       });
     });
   });
