@@ -62,6 +62,7 @@ const testfunc = (method, func) => {
     expect(newState.articles).toEqual({
       articles: [],
       article: data.article,
+      count: null,
       loadingArticles: false
     });
   });
@@ -169,6 +170,7 @@ describe("Filterby tags", () => {
     return expect(newState.articles).toEqual({
       article: null,
       articles: data.articles,
+      count: null,
       loadingArticles: false
     });
   };
@@ -188,6 +190,7 @@ describe("Filterby tags", () => {
       expect(newState.articles).toEqual({
         article: null,
         articles: [],
+        count: null,
         loadingArticles: true
       });
     });

@@ -3,6 +3,7 @@ import articleActions from "../actions/types";
 const initialState = {
   articles: [],
   article: null,
+  count: null,
   loadingArticles: false
 };
 
@@ -16,6 +17,8 @@ export default (state = initialState, action) => {
       return { ...state, loadingArticles: true };
     case articleActions.REMOVE_LOADING:
       return { ...state, loadingArticles: false };
+    case articleActions.ADD_COUNT:
+      return { ...state, count: action.payload };
     default:
       return state;
   }
