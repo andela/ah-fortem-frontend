@@ -44,6 +44,13 @@ const likesDislike = {
   UPDATE_LIKES: "UPDATE_LIKES",
   REMOVE_LIKES: "REMOVE_LIKES"
 };
+
+const ratingTypes = {
+  LOAD_RATING: "LOAD_RATING",
+  GET_AVERAGE_RATING: "GET_AVERAGE_RATING",
+  POST_RATING: "POST_RATING"
+};
+
 export default {
   ...Snackbar,
   ...articleActions,
@@ -54,5 +61,6 @@ export default {
   ...tagActions,
   ...errorActions,
   ...commentActions,
-  ...likesDislike
+  ...likesDislike,
+  ...ratingTypes
 };

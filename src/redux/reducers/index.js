@@ -6,6 +6,7 @@ import userProfile from "./userProfile/userProfile";
 import notifications from "./notifications";
 import tags from "./tagsReducer";
 import { CommentsReducer } from "./comments";
+import ratings from "./ratingReducer";
 
 export default combineReducers({
   toasts: MessageReducer,
@@ -13,5 +14,6 @@ export default combineReducers({
   profile: userProfile,
   tags,
   articles,
-  comments: CommentsReducer
+  comments: CommentsReducer,
+  ratings
 });

@@ -18,7 +18,7 @@ describe("<LikeDislike />", () => {
   const props = {
     likesCount: {
       likes: 0,
-      disllikes: 0
+      dislikes: 0
     }
   };
   const state = {

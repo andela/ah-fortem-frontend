@@ -26,35 +26,31 @@ const LikeDislike = ({ handleClick, props, like, dislike }) => {
   const { likes, dislikes } = props.likesCount;
 
   return (
-    <div className="card">
-      <div className="card-content">
-        <div className="left-align grey-text">
-          {isLoggedIn() === true ? (
-            <div>
-              <LikesDislikeBtn
-                handleClick={handleClick}
-                type="like"
-                count={likes}
-                status={like}
-              />
-              <LikesDislikeBtn
-                handleClick={handleClick}
-                type="dislike"
-                count={dislikes}
-                status={dislike}
-              />
-            </div>
-          ) : (
-            <Link
-              className="btn orange waves-effect waves-light"
-              to="/login"
-              data-test="not-logged-in"
-            >
-              Login to view likes
-            </Link>
-          )}
+    <div className="left-align grey-text">
+      {isLoggedIn() === true ? (
+        <div>
+          <LikesDislikeBtn
+            handleClick={handleClick}
+            type="like"
+            count={likes}
+            status={like}
+          />
+          <LikesDislikeBtn
+            handleClick={handleClick}
+            type="dislike"
+            count={dislikes}
+            status={dislike}
+          />
         </div>
-      </div>
+      ) : (
+        <Link
+          className="waves-effect white-text waves-light chip hoverable orange "
+          to="/login"
+          data-test="not-logged-in"
+        >
+          Login to view likes
+        </Link>
+      )}
     </div>
   );
 };

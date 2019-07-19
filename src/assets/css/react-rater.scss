@@ -1,0 +1,54 @@
+$gold: #fc6;
+$react-rater-link: #ccc !default;
+$react-rater-hover: lighten($gold, 10%);
+$react-rater-active: $gold;
+
+.react-rater {
+  display: inline-block;
+  line-height: normal;
+
+  > * {
+    display: inline-block;
+  }
+}
+
+.react-rater-star {
+  color: $react-rater-link;
+  cursor: pointer;
+  position: relative;
+
+  &.will-be-active {
+    color: $react-rater-hover;
+  }
+
+  &.is-active {
+    color: $react-rater-active;
+  }
+
+  &.is-active-half::before {
+    color: $react-rater-active;
+    content: '\2605';
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 50%;
+  }
+
+  &.is-disabled {
+    cursor: default;
+  }
+}
+
+.rating {
+  section {
+    &:not(:first-child) {
+      flex: 1 1 50%;
+      font-size: 1.5rem;
+    }
+
+    &:nth-child(2),
+    &:nth-child(3) {
+      height: 18rem;
+    }
+  }
+}

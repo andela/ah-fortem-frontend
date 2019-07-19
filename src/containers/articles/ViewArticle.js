@@ -6,9 +6,12 @@ import { viewArticle, deleteArticle } from "../../redux/actions/articleActions";
 import ArticleEditor from "../../components/Article/ArticleEditor";
 import { CommentsContainer } from "../Comments";
 import Loader from "../../components/Article/Loader";
-import LikeDislike from "../../containers/LikesDislike/LikesDislikesContainer";
 import "../../components/Article/styles/articles.css";
 import ShareBar from "./ShareArticle";
+import "../../components/Article/styles/articles.css";
+import { AverageRating } from "../../components/Ratings/RatingComponent";
+
+import Feedback from "../../components/Article/ArticleFeeback";
 
 export class ViewArticle extends Component {
   componentDidMount() {
@@ -26,13 +29,13 @@ export class ViewArticle extends Component {
   render() {
     const { article } = this.props;
     const user = localStorage.getItem("username");
+
     return (
       <div>
         {article ? (
           <div data-test="view-test">
             <ShareBar article={article} />
             <div className="container" key={article.id}>
-              <br />
               <div className="article-title">
                 <h3>{article.title}</h3>
               </div>
@@ -46,11 +49,19 @@ export class ViewArticle extends Component {
                   }
                   alt="User Profile pic"
                 />
-                <span className="article-author-name">
+                <span className="article-author-name left0a">
                   {article.author.username}
                 </span>
-                <div className="read_time left-align">
-                  <i>{article.read_time}</i>
+                <div className="row article-stats">
+                  <div className="left read_time">
+                    <i>{article.read_time}</i>
+                  </div>
+                  <div className="rating right ">
+                    <AverageRating
+                      average={article.avg_rating}
+                      count={article.rating_count}
+                    />
+                  </div>
                 </div>
               </div>
               <div className="row" id={article.slug}>
@@ -71,9 +82,8 @@ export class ViewArticle extends Component {
                         body={article.body}
                         getDraftJSContent={() => {}}
                       />
-                      <LikeDislike />
                     </div>
-                    <div className="user-buttons right-align">
+                    <div className="right-align">
                       {user === article.author.username ? (
                         <div>
                           <Link
@@ -92,6 +102,7 @@ export class ViewArticle extends Component {
                         </div>
                       ) : null}
                     </div>
+                    <Feedback {...this.props} />
                   </div>
                 </div>
               </div>
