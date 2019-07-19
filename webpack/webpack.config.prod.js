@@ -59,7 +59,9 @@ module.exports = merge(baseConfig, {
     new webpack.DefinePlugin({
       'process.env': {
         IMGUR_CLIENT_ID: process.env.IMGUR_CLIENT_ID,
-        IMGUR_CLIENT_SECRET: process.env.IMGUR_CLIENT_SECRET
+        IMGUR_CLIENT_SECRET: process.env.IMGUR_CLIENT_SECRET,
+        BACKEND_LINK: process.env.BACKEND_LINK,
+        FRONTEND_LINK: process.env.FRONTEND_LINK
       }
     })
   ]

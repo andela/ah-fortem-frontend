@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom"
 
-import Input from "../../components/Input/Input";
+import { renderInput } from "../../components/Input/Input";
 import { connect } from "react-redux";
 import { ShowMessage } from "../../redux/actions/SnackBarAction";
 import { apiCalls } from "../../Helpers/axios";
@@ -137,13 +137,6 @@ export class UnconnectedSignup extends React.Component {
         }
     }
 
-    renderInput = ({ id, name, errors, value, label, type }) =>
-        <Input
-            {...{ name, id, value, label, type }}
-            error={errors[name] ? errors[name][0] : null}
-            className={errors[name] ? "invalid" : ""}
-            data-test={`${name}-test`} onChange={this.handleChange} />
-
     renderForm = () => {
         const { errors, signup, user: {
             email,
@@ -151,15 +144,22 @@ export class UnconnectedSignup extends React.Component {
             password,
             confirmPassword,
         } } = this.state;
+
+        const inputFields = {
+            email: {id: "email", name: "email", errors, value: email, label: "Email", type: "email"},
+            username: { id: "username", name: "username", errors, value: username, label: "Username", type: "text" },
+            password: { id: "password", name: "password", errors, value: password, label: "Password", type: "password" },
+            confirmPassword: { id: "confirmPassword", name: "confirmPassword", errors, value: confirmPassword, label: "Confirm Password", type: "password" }
+        }
         return (
             <form data-test='signup-test' onSubmit={this.handleSubmit(apiCalls)}>
                 <div className="card-content">
                     <span className="card-title center-align">Signup</span>
                     <div className="row">
-                        {this.renderInput({ id: "email", name: "email", errors, value: email, label: "Email", type: "email" })}
-                        {this.renderInput({ id: "username", name: "username", errors, value: username, label: "Username", type: "text" })}
-                        {this.renderInput({ id: "password", name: "password", errors, value: password, label: "Password", type: "password" })}
-                        {this.renderInput({ id: "confirmPassword", name: "confirmPassword", errors, value: confirmPassword, label: "Confirm Password", type: "password" })}
+                        {renderInput(inputFields.email, this.handleChange)}
+                        {renderInput(inputFields.username, this.handleChange)}
+                        {renderInput(inputFields.password, this.handleChange)}
+                        {renderInput(inputFields.confirmPassword, this.handleChange)}
                     </div>
                 </div>
                 <div className="card-action right-align">
@@ -170,8 +170,6 @@ export class UnconnectedSignup extends React.Component {
     }
   
     render() {
-
-
         return (
             <div className="row">
                 <div className="col s12 m4 offset-m4">

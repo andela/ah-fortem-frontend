@@ -18,4 +18,11 @@ function Input(props) {
   );
 }
 
+export const renderInput = ({ id, name, errors, value, label, type }, handleChange) =>
+  <Input
+    {...{ name, id, value, label, type }}
+    error={errors[name] ? errors[name][0] : null}
+    className={errors[name] ? "invalid" : ""}
+    data-test={`${name}-test`} onChange={handleChange} />
+
 export default Input;
