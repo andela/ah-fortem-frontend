@@ -7,7 +7,7 @@ import notifications from "./notifications";
 import tags from "./tagsReducer";
 import { CommentsReducer } from "./comments";
 import ratings from "./ratingReducer";
-
+import { searchReducer } from "./search";
 export default combineReducers({
   toasts: MessageReducer,
   notifications: notifications,
@@ -15,5 +15,6 @@ export default combineReducers({
   tags,
   articles,
   comments: CommentsReducer,
-  ratings
+  ratings,
+  search: searchReducer
 });

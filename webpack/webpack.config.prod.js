@@ -1,10 +1,10 @@
 const merge = require("webpack-merge");
 const workboxPlugin = require("workbox-webpack-plugin");
 const webpack = require("webpack");
-
+const ReplacePlugin = require("webpack-plugin-replace");
+const CopyPlugin = require("copy-webpack-plugin");
 
 const baseConfig = require("./webpack.config.base");
-
 
 module.exports = merge(baseConfig, {
   mode: "production",
@@ -57,12 +57,20 @@ module.exports = merge(baseConfig, {
       ]
     }),
     new webpack.DefinePlugin({
-      'process.env': {
+      "process.env": {
         IMGUR_CLIENT_ID: process.env.IMGUR_CLIENT_ID,
         IMGUR_CLIENT_SECRET: process.env.IMGUR_CLIENT_SECRET,
         BACKEND_LINK: process.env.BACKEND_LINK,
         FRONTEND_LINK: process.env.FRONTEND_LINK
       }
-    })
+    }),
+    new ReplacePlugin({
+      exclude: [/node_modules/],
+      include: [filepath => filepath.includes("index.html")],
+      values: {
+        "http://localhost:4000": process.env.FRONTEND_LINK
+      }
+    }),
+    new CopyPlugin([{ from: "production_search.xml", to: "search.xml" }])
   ]
 });

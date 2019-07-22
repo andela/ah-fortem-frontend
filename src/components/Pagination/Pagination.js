@@ -5,8 +5,8 @@ export default class Pagination extends React.Component {
   generateArray = count => Array.from(Array(count).keys()).map(idx => idx + 1);
 
   computeLen = () => {
-    const { count } = this.props;
-    const pages = count / 10;
+    const { count, pageDelimeter = 10 } = this.props;
+    const pages = count / pageDelimeter;
 
     return Number.isInteger(pages)
       ? this.generateArray(pages)

@@ -47,3 +47,18 @@ export const snackBarError = (method, func, value) => {
     expect(newState.toasts.length).toBe(value);
   });
 };
+
+/**
+ *
+ * @param {Enzyme} shallowwrapper - shallow wrapper that is nested in provider & react-router
+ * @returns {ShallowWrapper} - Our component code that is exposed from the nesting
+ *
+ */
+export const diveDeep = shallowwrapper =>
+  shallowwrapper
+    .dive()
+    .dive()
+    .dive()
+    .dive()
+    .dive()
+    .dive();
