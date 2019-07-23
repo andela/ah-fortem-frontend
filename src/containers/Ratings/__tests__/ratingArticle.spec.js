@@ -8,7 +8,7 @@ import { storeFactory } from "../../../testutils/index";
 
 jest.spyOn(axios, "post");
 
-const store = storeFactory();
+const store = storeFactory({ ratings: 3 });
 const data = {
   article: {
     id: 5
@@ -16,7 +16,7 @@ const data = {
   match: {
     params: { slug: "this-a-good-article" }
   },
-  ratings: 5,
+  ratings: 3,
   viewArticle: jest.fn()
 };
 

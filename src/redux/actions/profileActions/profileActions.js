@@ -2,6 +2,7 @@ import types from "../types";
 import { apiCalls } from "../../../Helpers/axios";
 import { isLoggedIn } from "../../../Helpers/authHelpers";
 import { ShowMessage } from "../SnackBarAction";
+
 const {
   LOADPROFILE,
   SETPROFILEDATA,
@@ -69,6 +70,7 @@ export const getProfile = (username, history) => dispatch => {
         type: SETOWNERSTATUS,
         payload: isUserOwner(profile)
       });
+      return profile;
     })
     .catch(({ response: { status, data } }) => {
       handleProfileErrors(status, data, dispatch, history);

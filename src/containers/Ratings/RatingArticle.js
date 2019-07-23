@@ -42,7 +42,7 @@ export class Rating extends Component {
           total={5}
           onRate={this.handleRate.bind(this)}
         />{" "}
-        <span className="score center-align">
+        <span className="score center-align" data-test="ratings">
           {ratings ? ratings.toFixed(1) : 0}
         </span>
       </div>

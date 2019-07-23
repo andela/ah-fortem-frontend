@@ -20,9 +20,16 @@ describe("<Profiledata />", () => {
   };
   test("should render without error", () => {
     const renderEditComponent = jest.fn();
-    const wrapper = setUp({ data: profile, renderEditComponent });
+    const wrapper = setUp({
+      data: profile,
+      renderEditComponent,
+      owner: true
+    });
     const container = findByTestAttr(wrapper, "profile-data-component");
     expect(container.length).toBe(1);
+
+    const profilesettings = findByTestAttr(wrapper, "profile-settings");
+    expect(profilesettings.length).toBe(1);
     expect(renderEditComponent).toBeCalled();
   });
   test("should render default image if non is provided in profile info", () => {

@@ -91,6 +91,7 @@ describe("saveProfileInfo fn", () => {
         });
       });
   });
+
   test("should call Showmessage with an error message if the operation failed", () => {
     axios.put.mockImplementation(() => Promise.reject({}));
     const store = storeFactory({
