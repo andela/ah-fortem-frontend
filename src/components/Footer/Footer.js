@@ -6,7 +6,6 @@ const Footer = () => {
         <div className="row">
           <div className="col l6 s12">
             <h5 className="white-text">Authors Haven</h5>
-            <p className="grey-text text-lighten-4">Built with react</p>
           </div>
         </div>
       </div>

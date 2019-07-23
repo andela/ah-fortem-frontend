@@ -12,6 +12,7 @@ import "../../components/Article/styles/articles.css";
 import { AverageRating } from "../../components/Ratings/RatingComponent";
 
 import Feedback from "../../components/Article/ArticleFeeback";
+import FollowUnfollow from "../../containers/FollowUnfollow/FollowUnfollowContainer";
 
 export class ViewArticle extends Component {
   componentDidMount() {
@@ -52,6 +53,11 @@ export class ViewArticle extends Component {
                 <span className="article-author-name left0a">
                   {article.author.username}
                 </span>
+                <FollowUnfollow
+                  username={article.author.username}
+                  handleOnChange={() => {}}
+                />
+
                 <div className="row article-stats">
                   <div className="left read_time">
                     <i>{article.read_time}</i>

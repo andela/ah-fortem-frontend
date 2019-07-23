@@ -1,0 +1,14 @@
+.follow_btn {
+  display: inline-block;
+  font-size: 14px;
+  padding: 4px 12px;
+  border-radius: 16px;
+  border-color: #424242;
+  color: #424242;
+  font-weight: 100;
+}
+
+.follow_btn:hover {
+  color: #fb8c00;
+  border-color: #fb8c00;
+}

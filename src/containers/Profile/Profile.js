@@ -7,6 +7,7 @@ import { Profiledata, Loadingprofile } from "../../components/Profile";
 import { ShowMessage } from "../../redux/actions/SnackBarAction";
 import { getProfile } from "../../redux/actions/profileActions/profileActions";
 import { isLoggedIn } from "../../Helpers/authHelpers";
+import ProfileTabs from "../../components/ProfileTabs/ProfileTabs";
 
 export class UnconnectedProfile extends React.Component {
   /***
@@ -63,6 +64,9 @@ export class UnconnectedProfile extends React.Component {
                 isOwner ? <Editprofile {...{ profiledata }} /> : null
               }
             />
+            <div>
+              <ProfileTabs username={data.username} />
+            </div>
           </div>
         )}
       </div>
