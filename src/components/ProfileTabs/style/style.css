@@ -1,0 +1,10 @@
+.tab.react-tabs__tab {
+  color: rgba(238, 110, 115, 0.7);
+  height: 100%;
+  padding: 0 24px;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-transition: color 0.28s ease, background-color 0.28s ease;
+  transition: color 0.28s ease, background-color 0.28s ease;
+}

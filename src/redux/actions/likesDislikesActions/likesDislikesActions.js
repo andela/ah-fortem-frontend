@@ -38,7 +38,7 @@ export const getLikes = slug => dispatch => {
     })
     .catch(err => {
       const { response } = err;
-      handleErors(response);
+      handleErors(response, dispatch);
     });
 };
 

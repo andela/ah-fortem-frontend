@@ -16,7 +16,7 @@ const article = {
   avg_rating: 0,
   author: {
     username: "Kimaiyo",
-    image: ""
+    image: "image url"
   },
   body: "Lets and fly",
   title: "rider",
@@ -34,6 +34,12 @@ const setup = (props = { article }) => {
 describe("", () => {
   test("should render page without errors", () => {
     const wrapper = setup({ article });
+    renderer(wrapper, "view-test");
+  });
+  test("should render page without errors  when no athor url is provided", () => {
+    let editedArticle = article;
+    editedArticle.author.image = "";
+    const wrapper = setup({ article: editedArticle });
     renderer(wrapper, "view-test");
   });
   test("should render page without errors without article ", () => {
