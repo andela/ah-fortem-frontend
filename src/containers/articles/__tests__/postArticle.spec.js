@@ -29,6 +29,9 @@ describe("Tests for Posting an article", () => {
       }
     });
 
+    wrapper.instance().handleImage("image");
+    expect(wrapper.state().image).toBe("image");
+
     expect(findByTestAttr(wrapper, "title-input").prop("value")).toBe(
       "Kimaiyo's Article"
     );

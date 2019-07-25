@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { viewArticle, deleteArticle } from "../../redux/actions/articleActions";
+import { highlightText } from "../../redux/actions/HighlightCommentActions";
 import ArticleEditor from "../../components/Article/ArticleEditor";
 import { CommentsContainer } from "../Comments";
 import Loader from "../../components/Article/Loader";
@@ -14,7 +15,22 @@ import { AverageRating } from "../../components/Ratings/RatingComponent";
 import Feedback from "../../components/Article/ArticleFeeback";
 import FollowUnfollow from "../../containers/FollowUnfollow/FollowUnfollowContainer";
 
+import CommentPopup from "../../components/HighlightComment/CommentPopup";
+import CommentPopupBox from "../../components/HighlightComment/CommentPopupBox";
+import "./style/highlight.css";
+import { hideCommentBox } from "../../redux/actions/HighlightCommentActions";
 export class ViewArticle extends Component {
+  state = {
+    comment: {
+      display: "none"
+    },
+    commentBox: {
+      display: "none",
+      right: 0,
+      position: "absolute",
+      zIndex: 1
+    }
+  };
   componentDidMount() {
     this.props.viewArticle(this.props.match.params.slug);
   }
@@ -27,10 +43,80 @@ export class ViewArticle extends Component {
     });
   };
 
+  handleMouseUp = event => {
+    const { hideCommentBox } = this.props;
+    event.preventDefault();
+    hideCommentBox({
+      display: "none"
+    });
+    this.surroundSelection();
+  };
+
+  surroundSelection = () => {
+    const prevHighlight = document.getElementById("highlight");
+    if (prevHighlight) {
+      prevHighlight.removeAttribute("id");
+    }
+    const { highlightText } = this.props;
+    let text;
+    const s = window.getSelection();
+    if (window.getSelection) {
+      text = s.toString();
+    } else if (document.selection && document.selection.type !== "Control") {
+      text = document.selection.createRange().text;
+    }
+    const oRange = s.getRangeAt(0);
+    const oRect = oRange.getBoundingClientRect();
+    const boundaryRange = oRange.cloneRange();
+    const nodeElement = document.createElement("span");
+    nodeElement.id = "highlight";
+    nodeElement.appendChild(oRange.extractContents());
+    boundaryRange.insertNode(nodeElement);
+    s.removeAllRanges();
+    s.addRange(boundaryRange);
+    this.showCommentPopup(oRect);
+    highlightText(text);
+    const display = text.length > 0 ? "block" : "none";
+    this.setState(({ comment }) => ({
+      comment: { ...comment, display }
+    }));
+    return text;
+  };
+
+  position = anchor => {
+    var bodyRect = document.body.getBoundingClientRect();
+    const element_top = anchor.top;
+    const element_left = anchor.left;
+    const top = element_top - bodyRect.top - 42 + "px";
+    const left = element_left + (anchor.width / 2 - 50) + "px";
+    this.setState(({ commentBox }) => ({
+      comment: {
+        top,
+        left
+      },
+      commentBox: {
+        ...commentBox,
+        top
+      }
+    }));
+  };
+
+  showCommentPopup = anchor => {
+    let comment = document.createElement("span");
+    comment.className = "highlight";
+    comment.innerHTML = "comment";
+    document.body.append(comment);
+
+    this.position(anchor, comment);
+  };
+
   render() {
     const { article } = this.props;
     const user = localStorage.getItem("username");
-
+    const comentboxstyle = {
+      ...this.state.commentBox,
+      ...this.props.showCommentBox
+    };
     return (
       <div>
         {article ? (
@@ -82,7 +168,11 @@ export class ViewArticle extends Component {
                         alt="None to show"
                       />
                     </div>
-                    <div>
+                    <div
+                      id="articleview"
+                      onMouseUp={this.handleMouseUp}
+                      data-test="test-viewarticle"
+                    >
                       <ArticleEditor
                         edit={false}
                         body={article.body}
@@ -123,15 +213,19 @@ export class ViewArticle extends Component {
             <Loader />
           </div>
         )}
+        <CommentPopupBox style={comentboxstyle} />
+        <CommentPopup style={this.state.comment} />
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  article: state.articles.article
+  article: state.articles.article,
+  highlight: state.highlight,
+  showCommentBox: state.showCommentBox
 });
 export default connect(
   mapStateToProps,
-  { viewArticle, deleteArticle }
+  { viewArticle, deleteArticle, highlightText, hideCommentBox }
 )(ViewArticle);

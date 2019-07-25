@@ -7,3 +7,17 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.highlighted-text {
+  margin: 0.75em 0;
+  background: #f5f5f5;
+  border: 1px solid #f7f7f7;
+  border-top-color: #e68c17;
+  border-right-color: #e68c17;
+  border-bottom-color: #e68c17;
+  border-left: 3px solid #e68c17;
+}
+
+.highlighted-text p {
+  padding: 6px 10px;
+}

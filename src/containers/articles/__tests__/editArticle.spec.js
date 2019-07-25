@@ -115,6 +115,11 @@ describe("Tests for Editing an article", () => {
       image: "image_url",
       title: "dragon rider"
     });
+    const inst = wrapper.instance();
+    inst.handleBody("new body");
+    inst.handleImage("img");
+    expect(wrapper.state().body).toBe("new body");
+    expect(wrapper.state().image).toBe("img");
   });
 
   test("check title state of edited article ", () => {
