@@ -1,3 +1,9 @@
 .card-padding {
   padding: 10px;
 }
+
+.thumbs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

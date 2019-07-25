@@ -3,6 +3,7 @@ import React from "react";
 import { isUserCommentOwner } from "../../redux/actions/commentsActions/commentsActions";
 import CommentsAvatar from "./CommentsAvatar";
 import CommentAction from "./CommentActions";
+import CommentLikeDislike from "../../containers/Comments/CommentsLikeDislike";
 
 import "./Styles/commentsCards.css";
 
@@ -12,15 +13,20 @@ export default ({ comments, deleteComment, handleEditComment }) =>
       <div key={i} className="card card-padding">
         <CommentsAvatar {...comment} />
         <p>{comment.body}</p>
-        {isUserCommentOwner(comment) && (
-          <CommentAction
-            {...{
-              comment,
-              deleteComment,
-              handleEditComment
-            }}
-          />
-        )}
+        <div className="thumbs">
+          <CommentLikeDislike {...{ comment }} />
+          <div>
+            {isUserCommentOwner(comment) && (
+              <CommentAction
+                {...{
+                  comment,
+                  deleteComment,
+                  handleEditComment
+                }}
+              />
+            )}
+          </div>
+        </div>
       </div>
     ))
   ) : (

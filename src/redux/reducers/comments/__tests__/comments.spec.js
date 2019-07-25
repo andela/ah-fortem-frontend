@@ -13,7 +13,12 @@ const reuseableCommentsReducer = (action, defaultState = undefined) =>
 describe("commentsReducer Functionality", () => {
   const comment = {
     body: "A new comment is here",
-    id: 359
+    id: 359,
+    likesCount: {
+      dislikes: 2,
+      likes: 1,
+      total: 3
+    }
   };
 
   const recurringCommentsArray = {
@@ -104,6 +109,112 @@ describe("commentsReducer Functionality", () => {
           ]
         }
       ).comments
-    ).toEqual([{ body, id: comment.id }, additionalComment]);
+    ).toEqual([
+      { body, id: comment.id, likesCount: comment.likesCount },
+      additionalComment
+    ]);
+  });
+
+  test("should test updating a comment with a like", () => {
+    expect(
+      reuseableCommentsReducer(
+        {
+          type: actionTypes.UPDATE_COMMENT_LIKES,
+          payload: {
+            id: 359,
+            data: {
+              data: {
+                likes: 1,
+                dislikes: 2,
+                total: 3
+              }
+            }
+          }
+        },
+        { ...recurringCommentsArray }
+      ).comments
+    ).toEqual([
+      {
+        body: "A new comment is here",
+        id: 359,
+        likesCount: {
+          dislikes: 2,
+          likes: 1,
+          total: 3
+        }
+      }
+    ]);
+  });
+
+  test("should test not updating a comment that has not been liked or disliked", () => {
+    expect(
+      reuseableCommentsReducer(
+        {
+          type: actionTypes.UPDATE_COMMENT_LIKES,
+          payload: {
+            id: 1
+          }
+        },
+        { ...recurringCommentsArray }
+      ).comments
+    ).toEqual([comment]);
+  });
+
+  const { id, body } = comment;
+  test("should return a comment with updated like", () => {
+    expect(
+      reuseableCommentsReducer(
+        {
+          type: actionTypes.UPDATE_COMMENT_LIKES,
+          payload: {
+            id: 359,
+            type: "commentLike"
+          }
+        },
+        { ...recurringCommentsArray }
+      ).comments
+    ).toEqual([
+      {
+        body: body,
+        id: id,
+        likesCount: {
+          dislikes: 2,
+          likes: 0,
+          total: 3
+        }
+      }
+    ]);
+  });
+
+  test("should return a comment with updated dislikes", () => {
+    expect(
+      reuseableCommentsReducer(
+        {
+          type: actionTypes.UPDATE_COMMENT_LIKES,
+          payload: {
+            id: 359,
+            data: {
+              data: {
+                likes: 1,
+                dislikes: 2,
+                total: 3
+              }
+            },
+            type: "commentDislike"
+          }
+        },
+        { ...recurringCommentsArray }
+      ).comments
+    ).toEqual([
+      {
+        body: body,
+        id: id,
+        likesCount: {
+          dislikes: 1,
+          likes: 1,
+          total: 3
+        }
+      }
+    ]);
   });
 });
