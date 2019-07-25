@@ -40,6 +40,7 @@ export const rejectPromise = method => {
 
 export const snackBarError = (method, func, value) => {
   let store = storeFactory();
+
   rejectPromise(method);
 
   return store.dispatch(func()).then(() => {

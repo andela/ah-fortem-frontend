@@ -168,7 +168,6 @@ const getArticlesOperation = () => {
 };
 
 describe("Filterby tags", () => {
- 
   const dispatchArticlesActions = (store, fn) => {
     getArticlesOperation();
     return store.dispatch(fn()).then(() => {

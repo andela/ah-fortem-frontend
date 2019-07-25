@@ -55,15 +55,22 @@ describe("<UnconnectedProfile />", () => {
     // setup user details to localStorage
     localStorage.setItem("token", "usertoken");
     localStorage.setItem("username", "tev");
-    const getProfile = jest.fn();
-
-    const wrapper = setUp({ profile, getProfile });
+    const getProfile = jest.fn(() => Promise.resolve({}));
+    const optOut = jest.fn(() => Promise.resolve({}));
+    const optIn = jest.fn(() => Promise.resolve({}));
+    const status = true;
+    const wrapper = setUp({ profile, getProfile, optOut, optIn });
     wrapper.instance().componentDidMount();
+    wrapper.instance().handleAppNotifications();
+    wrapper.instance().handleEmailNotifications(status);
+    wrapper.instance().renderProfileData(profile, status);
+
     expect(getProfile).toBeCalled();
   });
 
   test("should render data if loading is complete", () => {
     const profile = {
+      isOwner: true,
       isLoading: false,
       data: {
         username: "Tev",
@@ -73,6 +80,7 @@ describe("<UnconnectedProfile />", () => {
     };
     const wrapper = setUp({ profile });
     const profiledata = findByTestAttr(wrapper, "profile-data");
+
     expect(profiledata.length).toBe(1);
   });
 });

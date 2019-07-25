@@ -14,6 +14,7 @@ const expectedResult = () => {
     ratings: resdata
   });
 };
+
 const testfunc = (method, func) => {
   let action;
   jest.spyOn(axios, method);
@@ -41,6 +42,7 @@ describe("Test article rating", () => {
   test("should show error snackbar on post rating", () => {
     snackBarError("post", setRating, 1);
   });
+
   test("should get rating", () => {
     testfunc("get", getRating);
   });
