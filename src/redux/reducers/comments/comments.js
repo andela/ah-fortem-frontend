@@ -6,7 +6,8 @@ const {
   DELETE_COMMENT,
   SET_LOADING_COMMENTS,
   EDIT_COMMENT,
-  REMOVE_LOADING_COMMENTS
+  REMOVE_LOADING_COMMENTS,
+  UPDATE_COMMENT_LIKES
 } = actionTypes;
 /**
  * The initial State of the comments reducer
@@ -40,6 +41,30 @@ export default (state = initialState, action) => {
           return comment.id === action.payload.id
             ? { ...comment, body: action.payload.body }
             : comment;
+        })
+      };
+
+    case UPDATE_COMMENT_LIKES:
+      const likesData = action.payload.data;
+      const type = action.payload.type;
+      return {
+        ...state,
+        comments: state.comments.map(comment => {
+          const { id, likesCount } = comment;
+          if (id === action.payload.id) {
+            if (type) {
+              const proptype = type === "commentLike" ? "likes" : "dislikes";
+              const newValue =
+                type === "commentLike" ? likesCount.likes : likesCount.dislikes;
+              return {
+                ...comment,
+                likesCount: { ...likesCount, [proptype]: newValue - 1 }
+              };
+            }
+            return { ...comment, likesCount: likesData.data };
+          } else {
+            return comment;
+          }
         })
       };
     default:
