@@ -51,6 +51,13 @@ const ratingTypes = {
   POST_RATING: "POST_RATING"
 };
 
+// search action types
+const searchActions = {
+  SET_SEARCH_RESULTS: "SET_SEARCH_RESULTS",
+  LOAD_SEARCH_RESULTS: "LOAD_SEARCH_RESULTS",
+  FINISH_LOADING_SEARCH_RESULTS: "FINISH_LOADING_SEARCH_RESULTS"
+};
+
 export default {
   ...Snackbar,
   ...articleActions,
@@ -62,5 +69,6 @@ export default {
   ...errorActions,
   ...commentActions,
   ...likesDislike,
-  ...ratingTypes
+  ...ratingTypes,
+  ...searchActions
 };

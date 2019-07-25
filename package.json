@@ -31,6 +31,7 @@
     "babel-eslint": "9.x",
     "babel-jest": "^24.8.0",
     "babel-loader": "^8.0.5",
+    "copy-webpack-plugin": "^5.0.3",
     "coveralls": "^3.0.4",
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.1",
@@ -64,11 +65,13 @@
     "webpack-cli": "^3.3.2",
     "webpack-dev-server": "^3.3.1",
     "webpack-merge": "^4.2.1",
+    "webpack-plugin-replace": "^1.2.0",
     "workbox-webpack-plugin": "^4.3.1"
   },
   "dependencies": {
     "axios": "^0.18.0",
     "dotenv": "^8.0.0",
+    "downshift": "^3.2.10",
     "draft-js": "^0.10.5",
     "fetch-mock": "^7.3.3",
     "materialize-css": "^1.0.0",
@@ -87,6 +90,7 @@
     "redux-mock-store": "^1.5.3",
     "redux-thunk": "^2.3.0",
     "serve": "^11.0.2",
+    "throttle-debounce": "^2.1.0",
     "uuidv4": "^4.0.0"
   },
   "engines": {

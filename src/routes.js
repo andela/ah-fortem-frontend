@@ -8,6 +8,7 @@ import PostArticle from "./containers/articles/PostArticle";
 import EditArticle from "./containers/articles/EditArticle";
 import PasswordReset from "./containers/PasswordReset/Passwordreset";
 import ResetPasswordConfirm from "./containers/PasswordReset/ConfirmPasswordReset";
+import { Searchcontainer } from "./containers/Search";
 const routes = [
   {
     path: "/login",
@@ -92,6 +93,14 @@ const routes = [
     private: false,
     name: "PasswordRestConfirm",
     component: ResetPasswordConfirm
+  },
+  {
+    path: "/search",
+    key: "Search Page",
+    exact: false,
+    private: false,
+    name: "SearchPage",
+    component: Searchcontainer
   },
   {
     path: "",

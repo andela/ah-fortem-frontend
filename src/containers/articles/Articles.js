@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import ArticleCard from "../../components/Article/ArticleCard";
 import Pagination from "../../components/Pagination/Pagination";
+import { SearchForm } from "../Search";
 
 import Loader from "../../components/Article/Loader";
 import {
@@ -67,6 +68,9 @@ export class Articles extends Component {
               <div>{this.renderPagination()}</div>
             </div>
             <div className="col s3">
+              <div>
+                <SearchForm />
+              </div>
               <h5 className="gray-text">Explore Topics</h5>
               <ListTags tags={tags} getArticlesByTags={getArticlesByTags} />
             </div>

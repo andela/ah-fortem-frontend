@@ -3,27 +3,13 @@ import { MemoryRouter, Route } from "react-router-dom";
 import { shallow, mount } from "enzyme";
 import axios from "axios";
 
-import { findByTestAttr, storeFactory } from "../../../testutils";
+import { findByTestAttr, storeFactory, diveDeep } from "../../../testutils";
 
 import Profile, { UnconnectedProfile } from "../Profile";
 import Editprofile from "../Editprofile";
 
 import Profiledata from "../../../components/Profile/Profiledata";
 
-/**
- *
- * @param {Enzyme} shallowwrapper - shallow wrapper that is nested in provider & react-router
- * @returns {ShallowWrapper} - Our component code that is exposed from the nesting
- *
- */
-const diveDeep = shallowwrapper =>
-  shallowwrapper
-    .dive()
-    .dive()
-    .dive()
-    .dive()
-    .dive()
-    .dive();
 /**
  *
  * @param {object} props - object that is passed as props to the component
