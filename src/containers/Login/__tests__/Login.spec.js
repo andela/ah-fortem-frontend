@@ -1,21 +1,15 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
-import Login, { UnconnectedLogin } from "../Login";
-import { Provider } from "react-redux";
-import { storeFactory } from "../../../testutils";
+import { shallow } from "enzyme";
+import { UnconnectedLogin } from "../Login";
 import * as apiCallModule from "../../../Helpers/axios";
-const store = storeFactory();
-const setup = props => {
-  return mount(
-    <Provider {...{ store }}>
-      <Login />
-    </Provider>
-  );
-};
-const wrapper = setup({});
 
 const wrapUnconnectedLogin = (props = {}) =>
   shallow(<UnconnectedLogin {...props} />);
+const setup = props => {
+  return wrapUnconnectedLogin(props);
+};
+const wrapper = setup({});
+
 const loginReply = {
   user: {
     email: "testuser@gmail.com",

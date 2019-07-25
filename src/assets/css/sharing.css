@@ -27,3 +27,30 @@
 .left-sidebar li:hover {
   width: 120px;
 }
+.social-auth {
+  margin: 5 5 5 97px;
+  border: none;
+}
+.social-auth i.fa-3x {
+  font-size: 25px;
+  color: #fff;
+  margin-top: 10px;
+}
+.social-auth li {
+  width: 22% !important;
+  height: 66px;
+  border-radius: 100%;
+  margin: 5px;
+  text-align: center;
+  line-height: 75px;
+  vertical-align: middle;
+}
+.social-auth li:nth-child(1) {
+  background: #3b5999;
+}
+.social-auth li:nth-child(2) {
+  background: #dd4b39;
+}
+.social-auth li:nth-child(3) {
+  background: #55acee;
+}

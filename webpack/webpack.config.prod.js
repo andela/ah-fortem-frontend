@@ -61,14 +61,18 @@ module.exports = merge(baseConfig, {
         IMGUR_CLIENT_ID: process.env.IMGUR_CLIENT_ID,
         IMGUR_CLIENT_SECRET: process.env.IMGUR_CLIENT_SECRET,
         BACKEND_LINK: process.env.BACKEND_LINK,
-        FRONTEND_LINK: process.env.FRONTEND_LINK
+        FRONTEND_LINK: process.env.FRONTEND_LINK,
+        FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
+        FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
+        FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID,
+        GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID
       }
     }),
     new ReplacePlugin({
       exclude: [/node_modules/],
       include: [filepath => filepath.includes("index.html")],
       values: {
-        "http://localhost:4000": process.env.FRONTEND_LINK
+        "http://localhost:4000": process.env.XML_SEARCH_LINK
       }
     }),
     new CopyPlugin([{ from: "production_search.xml", to: "search.xml" }])

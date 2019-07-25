@@ -1,11 +1,13 @@
 import React, { Component } from "react";
+
 import Input from "../../components/Input/Input";
 import "./styles/LoginStyle.css";
 import { connect } from "react-redux";
 import { apiCalls } from "../../Helpers/axios";
 import { ShowMessage } from "../../redux/actions/SnackBarAction";
 import { isLoggedIn } from "../../Helpers/authHelpers";
-import {validate } from "../../Helpers/inputValidation";
+import { validate } from "../../Helpers/inputValidation";
+import RenderSocialAuth from "../../components/SocialAuth/SocialAuth";
 
 export class UnconnectedLogin extends Component {
   constructor(props) {
@@ -75,10 +77,13 @@ export class UnconnectedLogin extends Component {
         }
       });
   }
-  
+
   handleChange(event) {
     const { user, login } = this.state;
-    if ((validate('email', user.email) === false) & (user.password.length > 4)) {
+    if (
+      (validate("email", user.email) === false) &
+      (user.password.length > 4)
+    ) {
       this.setState({
         ...this.state,
         login: { ...login, disabled: "" }
@@ -95,6 +100,7 @@ export class UnconnectedLogin extends Component {
       errors: {}
     });
   }
+
   render() {
     const { email, password } = this.state.user;
     const { errors, login } = this.state;
@@ -102,42 +108,46 @@ export class UnconnectedLogin extends Component {
       <div className="row valign-wrapper login-box">
         <div className="col s12 m4 offset-m4 valign">
           <div className="card hoverable">
-            <form onSubmit={this.handleSubmit} data-test="comp-login">
-              <div className="card-content">
-                <span className="card-title center-align">Login</span>
+            <div className="card-content">
+              <form onSubmit={this.handleSubmit} data-test="comp-login">
+                <div>
+                  <span className="card-title center-align">Login</span>
 
-                <div className="row">
-                  <Input
-                    label="Email"
-                    type="email"
-                    name="email"
-                    id="email"
-                    error={errors.email ? errors.email[0] : null}
-                    className={errors.email ? "invalid" : ""}
-                    required="required"
-                    value={email}
-                    onChange={this.handleChange}
-                  />
-                  <Input
-                    label="Password"
-                    type="password"
-                    name="password"
-                    id="password"
-                    required="required"
-                    error={errors.password ? errors.password[0] : null}
-                    className={errors.password ? "invalid" : ""}
-                    value={password}
-                    onChange={this.handleChange}
-                  />
+                  <div className="row">
+                    <Input
+                      label="Email"
+                      type="email"
+                      name="email"
+                      id="email"
+                      error={errors.email ? errors.email[0] : null}
+                      className={errors.email ? "invalid" : ""}
+                      required="required"
+                      value={email}
+                      onChange={this.handleChange}
+                    />
+                    <Input
+                      label="Password"
+                      type="password"
+                      name="password"
+                      id="password"
+                      required="required"
+                      error={errors.password ? errors.password[0] : null}
+                      className={errors.password ? "invalid" : ""}
+                      value={password}
+                      onChange={this.handleChange}
+                    />
+                  </div>
+                  <input type="submit" className="btn orange" {...login} />
                 </div>
-              </div>
-              <div className="card-action right-align">
-                <a className="blue-text" href="/reset-password">
-                  Reset Password
-                </a>
-                <input type="submit" className="btn orange" {...login} />
-              </div>
-            </form>
+              </form>
+              <RenderSocialAuth />
+            </div>
+
+            <div className="card-action right-align">
+              <a className="blue-text" href="/reset-password">
+                Reset Password
+              </a>
+            </div>
           </div>
         </div>
       </div>
