@@ -7,6 +7,9 @@ import tags from "./tagsReducer";
 import { CommentsReducer } from "./comments";
 import ratings from "./ratingReducer";
 import { searchReducer } from "./search";
+import highlight from "./highlightCommentReducer";
+import showCommentBox from "./showCommentBoxReducer";
+
 export default combineReducers({
   toasts: MessageReducer,
   notifications: notifications,
@@ -15,5 +18,7 @@ export default combineReducers({
   articles,
   comments: CommentsReducer,
   ratings,
-  search: searchReducer
+  search: searchReducer,
+  highlight,
+  showCommentBox
 });

@@ -59,6 +59,20 @@ const searchActions = {
   FINISH_LOADING_SEARCH_RESULTS: "FINISH_LOADING_SEARCH_RESULTS"
 };
 
+const highlightTextComment = {
+  HIGHLIGHT: "HIGHLIGHT",
+  REMOVE_HIGHLIGHT: "REMOVE_HIGHLIGHT"
+};
+
+const highlightedCommentActions = {
+  POST_HIGHLIGHTED_COMMENT: "POST_HIGHLIGHTED_COMMENT"
+};
+
+const showCommentBox = {
+  SHOW_COMMENT_BOX: "SHOW_COMMENT_BOX",
+  HIDE_COMMENT_BOX: "HIDE_COMMENT_BOX"
+};
+
 export default {
   ...Snackbar,
   ...articleActions,
@@ -71,5 +85,8 @@ export default {
   ...commentActions,
   ...likesDislike,
   ...ratingTypes,
-  ...searchActions
+  ...searchActions,
+  ...highlightTextComment,
+  ...highlightedCommentActions,
+  ...showCommentBox
 };

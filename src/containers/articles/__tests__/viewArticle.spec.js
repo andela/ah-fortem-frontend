@@ -100,4 +100,83 @@ describe("", () => {
         expect(history.push).toBeCalledWith("/");
       });
   });
+
+  test("Handle mouse up", () => {
+    window.getSelection = jest.fn().mockImplementation(() => {
+      return {
+        getRangeAt: () => {
+          return "String";
+        },
+        getBoundingClientRect: () => {
+          return { width: 100 };
+        }
+      };
+    });
+    document.getBoundingClientRect = jest.fn().mockImplementation(() => {
+      return { width: 100 };
+    });
+    localStorage.setItem("username", "Kimaiyo");
+    localStorage.setItem("token", "token");
+    const hideCommentBox = jest.fn();
+    const wrapper = setup({ article, hideCommentBox, window });
+    const viewArticle = findByTestAttr(wrapper, "test-viewarticle");
+    console.log(viewArticle);
+  });
+
+  test("should handle handleMouseUp()", () => {
+    global.document = {
+      getElementById: id => {
+        return {
+          removeAttribute: p => p
+        };
+      },
+      selection: {
+        type: "Control",
+        createRange: () => {
+          return {
+            text: ""
+          };
+        }
+      }
+    };
+    // global.document.selection.type = "Control"
+
+    var z = document.createElement("p"); // is a node
+    z.innerHTML = "test satu dua tiga";
+    global.window.getSelection = () => {
+      return {
+        toString: p => "jh",
+        getRangeAt: p => {
+          return {
+            getBoundingClientRect: p => {
+              return {
+                top: 10,
+                bottom: 10,
+                right: 10,
+                left: 10
+              };
+            },
+            cloneRange: p => {
+              return {
+                insertNode: () => p
+              };
+            },
+            extractContents: () => z
+          };
+        },
+        removeAllRanges: p => p,
+        addRange: p => p
+      };
+    };
+
+    const wrapper = setup({
+      article,
+      hideCommentBox: jest.fn(),
+      highlightText: jest.fn()
+    });
+
+    wrapper.instance().handleMouseUp({
+      preventDefault: jest.fn()
+    });
+  });
 });

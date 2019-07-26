@@ -12,6 +12,15 @@ export default ({ comments, deleteComment, handleEditComment }) =>
     comments.map((comment, i) => (
       <div key={i} className="card card-padding">
         <CommentsAvatar {...comment} />
+        {comment.highlighted_text ? (
+          <div className="highlighted-text">
+            <p>
+              <q>{comment.highlighted_text}</q>
+            </p>
+          </div>
+        ) : (
+          <span></span>
+        )}
         <p>{comment.body}</p>
         <div className="thumbs">
           <CommentLikeDislike {...{ comment }} />

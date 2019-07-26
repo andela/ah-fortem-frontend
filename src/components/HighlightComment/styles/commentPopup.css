@@ -1,0 +1,43 @@
+.highlight {
+  display: block;
+  position: absolute;
+  height: 20;
+  background-color: grey;
+  z-index: 1;
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+
+.top-bar {
+  height: 41px;
+  width: 90px;
+  background-color: #292929;
+  border-radius: 4px;
+}
+
+.bottom-bar {
+  background-color: #292929;
+  left: 40px;
+  position: absolute;
+  transform: rotate(45deg) translate(-6px, -6px);
+  height: 14px;
+  width: 14px;
+}
+
+.top-bar-content {
+  padding: 8px 0;
+}
+
+.comment-icon {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.comment-img {
+  height: 25px;
+  width: 25px;
+}
