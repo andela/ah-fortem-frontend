@@ -2,7 +2,7 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/48971366a224c262c089/maintainability)](https://codeclimate.com/github/andela/ah-fortem-frontend/maintainability)
 [![Build Status](https://travis-ci.com/andela/ah-fortem-frontend.svg?branch=develop)](https://travis-ci.com/andela/ah-fortem-frontend)
-[![Coverage Status](https://coveralls.io/repos/github/andela/ah-fortem-frontend/badge.svg?branch=task/166980298-integrate-travis)](https://coveralls.io/github/andela/ah-fortem-frontend?branch=develop)
+[![Coverage Status](https://coveralls.io/repos/github/andela/ah-fortem-frontend/badge.svg?branch=develop)](https://coveralls.io/github/andela/ah-fortem-frontend?branch=develop)
 
 ## Vision
 
